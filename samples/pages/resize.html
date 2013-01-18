@@ -1,0 +1,103 @@
+<!doctype html>
+
+<head>
+    <title>SpreadJS - Resize</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="description" content="%description%"/>
+    <meta name="keywords" content=""/>
+
+    <link rel="stylesheet" href="../../css/gcfilter-ui.css"/>
+
+    <link href="../../css/cobalt/jquery-wijmo.css" rel="stylesheet" type="text/css" title="rocket-jqueryui"/>
+    <link href="../../css/jquery.wijmo.wijsuperpanel.css" rel="stylesheet" type="text/css"/>
+
+    <script src="../../scripts/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="../../scripts/jquery-ui-1.9.1.custom.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="../../scripts/jquery.wijmo.wijspread.full.min.js"></script>
+
+    <script id="scriptInit" type="text/javascript">
+        var _ColNoneRszColor = "#CCCCFF";
+        var _RowNoneRszColor = "#CCFFCC";
+
+        $(document).ready(function () {
+            $("#ss").wijspread({sheetCount:1});
+
+            var spread = $("#ss").wijspread("spread");
+            spread.useWijmoTheme = true;
+            var sheet = spread.getActiveSheet();
+
+            sheet.isPaintSuspended(true);
+
+            sheet.setColumnResizable(5, false,$.wijmo.wijspread.SheetArea.viewport);
+            sheet.setRowResizable(8, false,$.wijmo.wijspread.SheetArea.viewport);
+            sheet.getColumn(5).backColor(_ColNoneRszColor);
+            sheet.getRow(8).backColor(_RowNoneRszColor);
+
+            sheet.isPaintSuspended(false);
+
+            sheet.bind($.wijmo.wijspread.Events.EnterCell, function () {
+                $("#col_resizable").prop("checked",
+                        sheet.getColumnResizable(sheet.getActiveColumnIndex(),$.wijmo.wijspread.SheetArea.viewport));
+                $("#row_resizable").prop("checked",
+                        sheet.getRowResizable(sheet.getActiveRowIndex(),$.wijmo.wijspread.SheetArea.viewport));
+            });
+        });
+
+        function ckbColResizable_Click(event) {
+            var spread = $("#ss").wijspread("spread");
+            var sheet = spread.getActiveSheet();
+
+            var checked = $("#col_resizable").prop("checked");
+            if(checked){
+                sheet.setColumnResizable(sheet.getActiveColumnIndex(), true,$.wijmo.wijspread.SheetArea.viewport);
+                sheet.getColumn(sheet.getActiveColumnIndex()).backColor(undefined);
+            } else {
+                sheet.setColumnResizable(sheet.getActiveColumnIndex(), false,$.wijmo.wijspread.SheetArea.viewport);
+                sheet.getColumn(sheet.getActiveColumnIndex()).backColor(_ColNoneRszColor);
+            }
+        };
+
+        function ckbRowResizable_Click(event) {
+            var spread = $("#ss").wijspread("spread");
+            var sheet = spread.getActiveSheet();
+
+            var checked = $("#row_resizable").prop("checked");
+            if(checked) {
+                sheet.setRowResizable(sheet.getActiveRowIndex(), true,$.wijmo.wijspread.SheetArea.viewport);
+                sheet.getRow(sheet.getActiveRowIndex()).backColor(undefined);
+            } else {
+                sheet.setRowResizable(sheet.getActiveRowIndex(), false,$.wijmo.wijspread.SheetArea.viewport);
+                sheet.getRow(sheet.getActiveRowIndex()).backColor(_RowNoneRszColor);
+            }
+        };
+    </script>
+
+</head>
+<body class="demo-single">
+<div class="container">
+    <div class="header">
+        <h2>SpreadJS Resize</h2>
+    </div>
+    <div class="main demo">
+        <div id="ss" style="width:100%; height:400px;border: 1px solid gray;"></div>
+
+        <div class="demo-options">
+            <div class="option-row">
+                <input type="checkbox" id="col_resizable" checked onclick="ckbColResizable_Click(event)"/>
+                <label for="col_resizable">Column Resizable</label>
+                <input type="checkbox" id="row_resizable" checked onclick="ckbRowResizable_Click(event)"/>
+                <label for="row_resizable">Row Resizable</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer demo-description">
+        <p>
+            Resizes width of column header, or height of row header.
+        </p>
+    </div>
+</div>
+</body>
+</html>

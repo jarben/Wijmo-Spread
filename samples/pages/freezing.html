@@ -1,0 +1,194 @@
+<!doctype html>
+
+<head>
+    <title>SpreadJS - Freezing</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="description" content="%description%"/>
+    <meta name="keywords" content=""/>
+
+    <link rel="stylesheet" href="../../css/gcfilter-ui.css"/>
+
+    <link href="../../css/cobalt/jquery-wijmo.css" rel="stylesheet" type="text/css" title="rocket-jqueryui"/>
+    <link href="../../css/jquery.wijmo.wijsuperpanel.css" rel="stylesheet" type="text/css"/>
+
+    <script src="../../scripts/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="../../scripts/jquery-ui-1.9.1.custom.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="../../scripts/jquery.wijmo.wijspread.full.min.js"></script>
+
+    <script id="scriptInit" type="text/javascript">
+        $(document).ready(function () {
+            $("#ss").wijspread({sheetCount:1});
+
+            var spread = $("#ss").wijspread("spread");
+            spread.useWijmoTheme = true;
+            var sheet = spread.getActiveSheet();
+            sheet.isPaintSuspended(true);
+
+            sheet.setFrozenCount(4, 4);
+
+            sheet.addSpan(1, 1, 1, 3);
+            sheet.setValue(1, 1, "Store");
+            sheet.addSpan(1, 4, 1, 7);
+            sheet.setValue(1, 4, "Goods");
+            sheet.addSpan(2, 1, 1, 2);
+            sheet.setValue(2, 1, "Area");
+            sheet.addSpan(2, 3, 2, 1);
+            sheet.setValue(2, 3, "ID");
+            sheet.addSpan(2, 4, 1, 2);
+            sheet.setValue(2, 4, "Fruits");
+            sheet.addSpan(2, 6, 1, 2);
+            sheet.setValue(2, 6, "Vegetables");
+            sheet.addSpan(2, 8, 1, 2);
+            sheet.setValue(2, 8, "Foods");
+            sheet.addSpan(2, 10, 2, 1);
+            sheet.setValue(2, 10, "Total");
+            sheet.setValue(3, 1, "State");
+            sheet.setValue(3, 2, "City");
+            sheet.setValue(3, 4, "Grape");
+            sheet.setValue(3, 5, "Apple");
+            sheet.setValue(3, 6, "Potato");
+            sheet.setValue(3, 7, "Tomato");
+            sheet.setValue(3, 8, "SandWich");
+            sheet.setValue(3, 9, "Hamburger");
+
+            sheet.addSpan(4, 1, 7, 1);
+            sheet.addSpan(4, 2, 3, 1);
+            sheet.addSpan(7, 2, 3, 1);
+            sheet.addSpan(10, 2, 1, 2);
+            sheet.setValue(10, 2, "Sub Total:");
+            sheet.addSpan(11, 1, 7, 1);
+            sheet.addSpan(11, 2, 3, 1);
+            sheet.addSpan(14, 2, 3, 1);
+            sheet.addSpan(17, 2, 1, 2);
+            sheet.setValue(17, 2, "Sub Total:");
+            sheet.addSpan(18, 1, 1, 3);
+            sheet.setValue(18, 1, "Total:");
+
+            sheet.setValue(4, 1, "NC");
+            sheet.setValue(4, 2, "Raleigh");
+            sheet.setValue(7, 2, "Charlotte");
+            sheet.setValue(4, 3, "001");
+            sheet.setValue(5, 3, "002");
+            sheet.setValue(6, 3, "003");
+            sheet.setValue(7, 3, "004");
+            sheet.setValue(8, 3, "005");
+            sheet.setValue(9, 3, "006");
+            sheet.setValue(11, 1, "PA");
+            sheet.setValue(11, 2, "Philadelphia");
+            sheet.setValue(14, 2, "Pittsburgh");
+            sheet.setValue(11, 3, "007");
+            sheet.setValue(12, 3, "008");
+            sheet.setValue(13, 3, "009");
+            sheet.setValue(14, 3, "010");
+            sheet.setValue(15, 3, "011");
+            sheet.setValue(16, 3, "012");
+
+            sheet.setFormula(10, 4, "=SUM(E5:E10)");
+            sheet.setFormula(10, 5, "=SUM(F5:F10)");
+            sheet.setFormula(10, 6, "=SUM(G5:G10)");
+            sheet.setFormula(10, 7, "=SUM(H5:H10)");
+            sheet.setFormula(10, 8, "=SUM(I5:I10)");
+            sheet.setFormula(10, 9, "=SUM(J5:J10)");
+
+            sheet.setFormula(17, 4, "=SUM(E12:E17)");
+            sheet.setFormula(17, 5, "=SUM(F12:F17)");
+            sheet.setFormula(17, 6, "=SUM(G12:G17)");
+            sheet.setFormula(17, 7, "=SUM(H12:H17)");
+            sheet.setFormula(17, 8, "=SUM(I12:I17)");
+            sheet.setFormula(17, 9, "=SUM(J12:J17)");
+
+            for(var i = 0; i < 14; i ++) {
+                sheet.setFormula(4 + i, 10, "=SUM(E"+ (5 + i).toString() + ":J" + (5 + i).toString() +")");
+            }
+
+            sheet.setFormula(18, 4, "=E11+E18");
+            sheet.setFormula(18, 5, "=F11+F18");
+            sheet.setFormula(18, 6, "=G11+G18");
+            sheet.setFormula(18, 7, "=H11+H18");
+            sheet.setFormula(18, 8, "=I11+I18");
+            sheet.setFormula(18, 9, "=J11+J18");
+            sheet.setFormula(18, 10, "=K11+K18");
+
+            sheet.getCells(1, 1, 3, 10).backColor("#CCCCFF");
+            sheet.getCells(4, 1, 18, 3).backColor("#CCFFCC");
+            sheet.getCells(1, 1, 3, 10).hAlign( $.wijmo.wijspread.HorizontalAlign.center);
+
+            sheet.setBorder(new $.wijmo.wijspread.Range(1, 1, 18, 10), new $.wijmo.wijspread.LineBorder("Black", $.wijmo.wijspread.LineStyle.thin),  {all:true});
+            sheet.setBorder(new $.wijmo.wijspread.Range(4, 4, 3, 6), new $.wijmo.wijspread.LineBorder("Black", $.wijmo.wijspread.LineStyle.dotted),  {inside:true});
+            sheet.setBorder(new $.wijmo.wijspread.Range(7, 4, 3, 6), new $.wijmo.wijspread.LineBorder("Black", $.wijmo.wijspread.LineStyle.dotted),  {inside:true});
+            sheet.setBorder(new $.wijmo.wijspread.Range(11, 4, 3, 6), new $.wijmo.wijspread.LineBorder("Black", $.wijmo.wijspread.LineStyle.dotted),  {inside:true});
+            sheet.setBorder(new $.wijmo.wijspread.Range(14, 4, 3, 6), new $.wijmo.wijspread.LineBorder("Black", $.wijmo.wijspread.LineStyle.dotted),  {inside:true});
+
+            fillSampleData(sheet, new $.wijmo.wijspread.Range(4, 4, 6, 6));
+            fillSampleData(sheet, new $.wijmo.wijspread.Range(11, 4, 6, 6));
+
+
+            sheet.isPaintSuspended(false);
+
+        });
+
+        function fillSampleData(sheet, range) {
+            for (var i = 0; i < range.rowCount; i++) {
+                for (var j = 0; j < range.colCount; j++) {
+                    sheet.setValue(range.row + i, range.col + j, Math.ceil(Math.random() * 300));
+                }
+            }
+        };
+
+        function btnFrozenRow_Click(event){
+            var ss = $("#ss").wijspread("spread");
+            var sheet = ss.getActiveSheet();
+
+            var count = $("#frozenrow_count").val();
+            count = parseInt(count);
+            if(!isNaN(count)) {
+                sheet.setFrozenCount(count, sheet.frozenColCount);
+            }
+        };
+
+        function btnFrozenCol_Click(event) {
+          var ss = $("#ss").wijspread("spread");
+            var sheet = ss.getActiveSheet();
+
+            var count  = $("#frozencol_count").val();
+            count = parseInt(count);
+            if(!isNaN(count)) {
+                sheet.setFrozenCount(sheet.frozenRowCount, count);
+            }
+        };
+
+    </script>
+
+</head>
+<body class="demo-single">
+<div class="container">
+    <div class="header">
+        <h2>SpreadJS Freezing</h2>
+    </div>
+    <div class="main demo">
+        <div id="ss" style="width:100%; height:400px;border: 1px solid gray; margin-bottom: 30px"></div>
+
+        <div class="demo-options">
+            <div class="option-row">
+                <label>FreezeRowCount:</label>
+                <input type="text" id="frozenrow_count" value="0"/>
+                <input type="button" value="Set" onclick="btnFrozenRow_Click(event)"/>
+            </div>
+             <div class="option-row">
+                <label>FreezeColumnCount:</label>
+                <input type="text" id="frozencol_count" value="0"/>
+                <input type="button" value="Set" onclick="btnFrozenCol_Click(event)"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer demo-description">
+        <p>
+            Freezes some rows/columns to prevent scrolling.
+        </p>
+    </div>
+</div>
+</body>
+</html>

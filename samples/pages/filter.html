@@ -1,0 +1,201 @@
+<!doctype html>
+
+<head>
+    <title>SpreadJS - Filter</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="description" content="%description%"/>
+    <meta name="keywords" content=""/>
+
+    <link rel="stylesheet" href="../../css/gcfilter-ui.css"/>
+
+    <link href="../../css/cobalt/jquery-wijmo.css" rel="stylesheet" type="text/css" title="rocket-jqueryui"/>
+    <link href="../../css/jquery.wijmo.wijsuperpanel.css" rel="stylesheet" type="text/css"/>
+
+    <script src="../../scripts/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="../../scripts/jquery-ui-1.9.1.custom.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="../../scripts/jquery.wijmo.wijspread.full.min.js"></script>
+
+    <script id="scriptInit" type="text/javascript">
+        $(document).ready(function () {
+            $("#ss").wijspread({sheetCount:1});
+
+            var spread = $("#ss").wijspread("spread");
+            spread.useWijmoTheme = true;
+            var sheet = spread.getActiveSheet();
+            sheet.isPaintSuspended(true);
+
+            sheet.setRowCount(50);
+            sheet.setColumnCount( 8);
+            var rc = sheet.getRowCount();
+            var cc = sheet.getColumnCount();
+
+            for (var r = 0; r < rc; r++)
+            {
+                for (var c = 0; c < cc; c++)
+                {
+                    if (c == 0) {
+                        sheet.setValue(r, c, "Value is Number");
+                    } else {
+                        sheet.setValue(r, c, r + c);
+                    }
+                }
+            }
+
+
+            sheet.setValue(0, 0, "Conditions", $.wijmo.wijspread.SheetArea.colHeader);
+            sheet.setValue(0, 1, "Cell Value", $.wijmo.wijspread.SheetArea.colHeader);
+
+            sheet.setValue(1, 0, "Text contains e");
+            sheet.setValue(10, 0, "Text doesn't contains e");
+            sheet.setValue(21, 0, "Text contains e");
+            sheet.setValue(1, 1, "begin");
+            sheet.setValue(10, 1, "during");
+            sheet.setValue(21, 1, "end");
+
+            sheet.setValue(2, 0, "Background is Cyan");
+            sheet.setValue(6, 0, "Background is Purple");
+            sheet.setValue(12, 0, "Background is Cyan");
+            sheet.getCell(2, 1).backColor("Cyan");
+            sheet.getCell(6, 1).backColor("Purple");
+            sheet.getCell(12, 1).backColor("Cyan");
+
+            sheet.setValue(3, 0, "Value is Thursday");
+            sheet.setValue(8, 0, "Value is Friday");
+            sheet.setValue(14, 0, "Value is Thursday");
+            sheet.setValue(3, 1, new Date(2011, 5, 30));
+            sheet.setValue(8, 1, new Date(2011, 6, 1));
+            sheet.setValue(14, 1, new Date(2011, 5, 30));
+
+            sheet.setValue(4, 0, "Value is null");
+            sheet.setValue(9, 0, "Value is null");
+            sheet.setValue(18, 0, "Value is null");
+            sheet.setValue(4, 1, null);
+            sheet.setValue(9, 1, null);
+            sheet.setValue(18, 1, null);
+
+            sheet.setColumnWidth(0, 150);
+            sheet.setColumnWidth(1, 150);
+
+            var filter = new $.wijmo.wijspread.HideRowFilter(sheet, new $.wijmo.wijspread.Range(-1, 0, -1, 2));
+            filter.showFilterButton = false;
+            sheet.rowFilter = filter;
+
+            sheet.isPaintSuspended(false);
+        });
+
+        function btnTextCondition_Click(event) {
+            var ss = $("#ss").wijspread("spread");
+            var sheet = ss.getActiveSheet();
+            var filter = sheet.rowFilter;
+            if(filter) {
+                filter.removeFilterItems(1);
+                if($("#text_conditon").prop("checked")){
+                    filter.addTextFilter(1, $.wijmo.wijspread.TextCompareType.Contains, "*e*");
+                }
+                filter.filter(1);
+                sheet.invalidateLayout();
+                sheet.repaint();
+            }
+        };
+
+        function btnNumberCondition_Click(event) {
+            var ss = $("#ss").wijspread("spread");
+            var sheet = ss.getActiveSheet();
+            var filter = sheet.rowFilter;
+            if(filter) {
+                filter.removeFilterItems(1);
+                if($("#number_conditon").prop("checked")){
+                    filter.addNumberFilter(1, $.wijmo.wijspread.GeneralCompareType.LessThan, 20)
+                }
+                filter.filter(1);
+                sheet.invalidateLayout();
+                sheet.repaint();
+            }
+        };
+
+        function btnDateCondition_Click(event) {
+            var ss = $("#ss").wijspread("spread");
+            var sheet = ss.getActiveSheet();
+            var filter = sheet.rowFilter;
+            if(filter) {
+                filter.removeFilterItems(1);
+                if($("#date_conditon").prop("checked")){
+                    var dateExCondition  =  $.wijmo.wijspread.DateExCondition.fromWeek(4);
+                    filter.addFilterItem(1, dateExCondition);
+                }
+                filter.filter(1);
+                sheet.invalidateLayout();
+                sheet.repaint();
+            }
+        };
+
+        function btnStyleCondition_Click(event) {
+            var ss = $("#ss").wijspread("spread");
+            var sheet = ss.getActiveSheet();
+            var filter = sheet.rowFilter;
+            if(filter) {
+                filter.removeFilterItems(1);
+                if($("#style_conditon").prop("checked")){
+                    filter.addBackgroundFilter(1, "Cyan");
+                }
+                filter.filter(1);
+                sheet.invalidateLayout();
+                sheet.repaint();
+            }
+        };
+
+        function btnCustomCondition_Click(event) {
+            var ss = $("#ss").wijspread("spread");
+            var sheet = ss.getActiveSheet();
+            var filter = sheet.rowFilter;
+            if(filter) {
+                filter.removeFilterItems(1);
+                if($("#custom_conditon").prop("checked")){
+                    var formulaCondition = new $.wijmo.wijspread.FormulaCondition(GrapeCity.UI.CustomValueType.Empty, null);
+                    filter.addFilterItem(1, formulaCondition);
+                }
+                filter.filter(1);
+                sheet.invalidateLayout();
+                sheet.repaint();
+            }
+        };
+
+    </script>
+
+</head>
+<body class="demo-single">
+<div class="container">
+    <div class="header">
+        <h2>SpreadJS Filter</h2>
+    </div>
+    <div class="main demo">
+        <div id="ss" style="width:100%; height:400px;border: 1px solid gray; "></div>
+
+        <div class="demo-options">
+            <div class="option-row">
+                <input type="checkbox" id="text_conditon"  onclick="btnTextCondition_Click(event)"/>
+                <label for="text_conditon">Text Condition(Contains e)</label>
+                <input type="checkbox" id="number_conditon"  onclick="btnNumberCondition_Click(event)"/>
+                <label for="number_conditon">Number Condition(less than 20)</label>
+                <input type="checkbox" id="date_conditon"  onclick="btnDateCondition_Click(event)"/>
+                <label for="date_conditon">Date Condition (is Thursday)</label>
+            </div>
+            <div class="option-row">
+                <input type="checkbox" id="style_conditon"  onclick="btnStyleCondition_Click(event)"/>
+                <label for="style_conditon">Style Condition(Cyan background)</label>
+                <input type="checkbox" id="custom_conditon"  onclick="btnCustomCondition_Click(event)"/>
+                <label for="custom_conditon">Customize Condition(Value is empty)</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer demo-description">
+        <p>
+            Filters rows if the cell value of the second column match the condition.
+        </p>
+    </div>
+</div>
+</body>
+</html>

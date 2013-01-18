@@ -1,0 +1,152 @@
+<!doctype html>
+
+<head>
+    <title>SpreadJS - MultipleHeaders</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="description" content="%description%"/>
+    <meta name="keywords" content=""/>
+
+    <link rel="stylesheet" href="../../css/gcfilter-ui.css"/>
+
+    <link href="../../css/cobalt/jquery-wijmo.css" rel="stylesheet" type="text/css" title="rocket-jqueryui"/>
+    <link href="../../css/jquery.wijmo.wijsuperpanel.css" rel="stylesheet" type="text/css"/>
+
+    <script src="../../scripts/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="../../scripts/jquery-ui-1.9.1.custom.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="../../scripts/jquery.wijmo.wijspread.full.min.js"></script>
+
+    <script id="scriptInit" type="text/javascript">
+        $(document).ready(function () {
+            $("#ss").wijspread({sheetCount:1});
+
+            var spread = $("#ss").wijspread("spread");
+            spread.useWijmoTheme = true;
+            var sheet = spread.getActiveSheet();
+            sheet.isPaintSuspended(true);
+
+            sheet.setRowCount( 10);
+            sheet.setColumnCount( 8);
+            sheet.setRowCount( 2, $.wijmo.wijspread.SheetArea.colHeader);
+            sheet.setColumnCount( 2, $.wijmo.wijspread.SheetArea.rowHeader);
+
+            sheet.addSpan(0, 0, 2, 1, $.wijmo.wijspread.SheetArea.colHeader);
+            sheet.setValue(0, 0, "State", $.wijmo.wijspread.SheetArea.colHeader);
+
+            sheet.addSpan(0, 1, 1, 2, $.wijmo.wijspread.SheetArea.colHeader);
+            sheet.setValue(0, 1, "Company", $.wijmo.wijspread.SheetArea.colHeader);
+
+            sheet.addSpan(0, 3, 1, 2, $.wijmo.wijspread.SheetArea.colHeader);
+            sheet.setValue(0, 3,  "Category", $.wijmo.wijspread.SheetArea.colHeader);
+
+            sheet.addSpan(0, 5, 1, 3, $.wijmo.wijspread.SheetArea.colHeader);
+            sheet.setValue(0, 5, "Products", $.wijmo.wijspread.SheetArea.colHeader);
+
+            sheet.setValue(1, 1,"GC", $.wijmo.wijspread.SheetArea.colHeader);
+            sheet.setValue(1, 2,"MS", $.wijmo.wijspread.SheetArea.colHeader);
+            sheet.setValue(1, 3,"License", $.wijmo.wijspread.SheetArea.colHeader);
+            sheet.setValue(1, 4,"Activate", $.wijmo.wijspread.SheetArea.colHeader);
+            sheet.setValue(1, 5,"Win", $.wijmo.wijspread.SheetArea.colHeader);
+            sheet.setValue(1, 6,"Web", $.wijmo.wijspread.SheetArea.colHeader);
+            sheet.setValue(1, 7,"XAML", $.wijmo.wijspread.SheetArea.colHeader);
+
+            sheet.addSpan(0, 0, 3, 1, $.wijmo.wijspread.SheetArea.rowHeader);
+            sheet.addSpan(3, 0, 3, 1, $.wijmo.wijspread.SheetArea.rowHeader);
+            sheet.addSpan(6, 0, 3, 1, $.wijmo.wijspread.SheetArea.rowHeader);
+            sheet.addSpan(9, 0, 1, 2, $.wijmo.wijspread.SheetArea.rowHeader);
+
+            sheet.setValue(0, 0,".NET", $.wijmo.wijspread.SheetArea.rowHeader);
+            sheet.setValue(3, 0,"Java", $.wijmo.wijspread.SheetArea.rowHeader);
+            sheet.setValue(6, 0,"HTML", $.wijmo.wijspread.SheetArea.rowHeader);
+            sheet.setValue(9, 0,"Total:", $.wijmo.wijspread.SheetArea.rowHeader);
+
+            sheet.setBorder(new $.wijmo.wijspread.Range(9, 0, 1, 8), new $.wijmo.wijspread.LineBorder("Black", $.wijmo.wijspread.LineStyle.double),  {top:true});
+
+            sheet.setFormula(9, 0, "=SUM(A1:A9)");
+            sheet.setFormula(9, 1, "=SUM(B1:B9)");
+            sheet.setFormula(9, 2, "=SUM(C1:C9)");
+            sheet.setFormula(9, 3, "=SUM(D1:D9)");
+            sheet.setFormula(9, 4, "=SUM(E1:E9)");
+            sheet.setFormula(9, 5, "=SUM(F1:F9)");
+            sheet.setFormula(9, 6, "=SUM(G1:G9)");
+            sheet.setFormula(9, 7, "=SUM(H1:H9)");
+
+
+            fillSampleData(sheet, new $.wijmo.wijspread.Range(0, 0, 9, 8));
+
+            sheet.isPaintSuspended(false);
+        });
+
+        function fillSampleData(sheet, range) {
+            for (var i = 0; i < range.rowCount; i++) {
+                for (var j = 0; j < range.colCount; j++) {
+                    sheet.setValue(range.row + i, range.col + j, Math.ceil(Math.random() * 300));
+                }
+            }
+        };
+
+        function btnAddColHeader_Click(event) {
+            var ss = $("#ss").wijspread("spread");
+            var sheet = ss.getActiveSheet();
+
+            var count = sheet.getRowCount($.wijmo.wijspread.SheetArea.colHeader);
+            sheet.setRowCount(count + 1, $.wijmo.wijspread.SheetArea.colHeader);
+        };
+
+        function btnDelColHeader_Click(event) {
+            var ss = $("#ss").wijspread("spread");
+            var sheet = ss.getActiveSheet();
+
+            var count = sheet.getRowCount($.wijmo.wijspread.SheetArea.colHeader);
+            if(count > 0) {
+                sheet.setRowCount(count - 1, $.wijmo.wijspread.SheetArea.colHeader);
+            }
+        };
+
+        function btnAddRowHeader_Click(event) {
+            var ss = $("#ss").wijspread("spread");
+            var sheet = ss.getActiveSheet();
+
+            var count = sheet.getColumnCount($.wijmo.wijspread.SheetArea.rowHeader);
+            sheet.setColumnCount(count + 1, $.wijmo.wijspread.SheetArea.rowHeader);
+        };
+
+        function btnDelRowHeader_Click(event) {
+            var ss = $("#ss").wijspread("spread");
+            var sheet = ss.getActiveSheet();
+
+            var count = sheet.getColumnCount($.wijmo.wijspread.SheetArea.rowHeader);
+            if(count > 0) {
+                sheet.setColumnCount(count - 1, $.wijmo.wijspread.SheetArea.rowHeader);
+            }
+        };
+    </script>
+
+</head>
+<body class="demo-single">
+<div class="container">
+    <div class="header">
+        <h2>SpreadJS MultipleHeaders</h2>
+    </div>
+    <div class="main demo">
+        <div id="ss" style="width:100%; height:400px;border: 1px solid gray; "></div>
+
+        <div class="demo-options">
+            <div class="option-row">
+                <input type="button" value="AddColHeader" onclick="btnAddColHeader_Click(event)"/>
+                <input type="button" value="DelColHeader" onclick="btnDelColHeader_Click(event)"/>
+                <input type="button" value="AddRowHeader" onclick="btnAddRowHeader_Click(event)"/>
+                <input type="button" value="DelRowHeader" onclick="btnDelRowHeader_Click(event)"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer demo-description">
+        <p>
+            Adding multiple rows in column header, or adding multiple columns in row header.
+        </p>
+    </div>
+</div>
+</body>
+</html>

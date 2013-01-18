@@ -1,0 +1,145 @@
+<!doctype html>
+
+<head>
+    <title>SpreadJS - Scrolling</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="description" content="%description%"/>
+    <meta name="keywords" content=""/>
+
+    <link rel="stylesheet" href="../../css/gcfilter-ui.css"/>
+
+    <link href="../../css/cobalt/jquery-wijmo.css" rel="stylesheet" type="text/css" title="rocket-jqueryui"/>
+    <link href="../../css/jquery.wijmo.wijsuperpanel.css" rel="stylesheet" type="text/css"/>
+
+    <script src="../../scripts/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="../../scripts/jquery-ui-1.9.1.custom.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="../../scripts/jquery.wijmo.wijspread.full.min.js"></script>
+
+    <script id="scriptInit" type="text/javascript">
+        $(document).ready(function () {
+            $("#ss").wijspread({sheetCount:1});
+
+            var spread = $("#ss").wijspread("spread");
+            spread.isPaintSuspended(true);
+            spread.useWijmoTheme = true;
+
+            spread.tabStripVisible(false);
+            spread.canUserDragFill(false);
+            spread.canUserDragDrop(false);
+            var sheet = spread.getActiveSheet();
+            sheet.setDataSource(getDataSource());
+            sheet.addSelection(0, 0, 1, 1);
+            sheet.getColumn(0).locked( false);
+            sheet.getColumn(1).locked( false);
+            sheet.getColumn(2).locked( false);
+            sheet.getColumn(3).locked( false);
+            sheet.getColumn(4).locked( false);
+            sheet.setColumnWidth(0, 100);
+            sheet.setColumnWidth(1, 100);
+            sheet.setColumnWidth(2, 200);
+            sheet.setColumnWidth(3, 100);
+            sheet.setColumnWidth(4, 300);
+            sheet.rowFilter = new $.wijmo.wijspread.HideRowFilter(sheet, new $.wijmo.wijspread.Range(-1, -1, -1, -1));
+
+            spread.isPaintSuspended(false);
+        });
+
+        function getDataSource() {
+            var source = [
+               { LastName:"Freehafer",	FirstName:"Nancy",	Title:"Sales Representative", Phone:"(123)555-0100", Email:"nancy@northwindtraders.com"},
+               { LastName:"Cencini",	FirstName:"Andrew",	Title:"Vice President, Sales", Phone:"(123)555-0100", Email:"andrew@northwindtraders.com"},
+               { LastName:"Kotas",	FirstName:"Jan",	Title:"Sales Representative", Phone:"(123)555-0100", Email:"jan@northwindtraders.com"},
+               { LastName:"Sergienko",	FirstName:"Mariya",	Title:"Sales Representative", Phone:"(123)555-0100", Email:"mariya@northwindtraders.com"},
+               { LastName:"Thorpe",	FirstName:"Steven",	Title:"Sales Manager", Phone:"(123)555-0100", Email:"steven@northwindtraders.com"},
+               { LastName:"Neipper",	FirstName:"Michael",	Title:"Sales Representative", Phone:"(123)555-0100", Email:"michael@northwindtraders.com"},
+               { LastName:"Zare",	FirstName:"Robert",	Title:"Sales Representative", Phone:"(123)555-0100", Email:"robert@northwindtraders.com"},
+               { LastName:"Giussani",	FirstName:"Laura",	Title:"Sales Coordinator", Phone:"(123)555-0100", Email:"laura@northwindtraders.com"},
+               { LastName:"Hellung-Larsen",	FirstName:"Anne",	Title:"Sales Representative", Phone:"(123)555-0100", Email:"anne@northwindtraders.com"}
+            ];
+
+            return source;
+        };
+
+        function clearRule(sheet){
+            var conditionFormats = sheet.getConditionalFormats();
+            var count  =  conditionFormats.count();
+            for(var i = 0; i < count; i++) {
+                conditionFormats.remove(conditionFormats.getRule(i));
+            }
+        }
+
+        function btnSearch_Click(event) {
+            var spread  = $("#ss").wijspread("spread");
+            var sheet = spread.getActiveSheet();
+
+            clearRule(sheet);
+            var style = new $.wijmo.wijspread.Style();
+            style.foreColor = "red";
+            style.font = "bold 12px sans-serif";
+            sheet.getConditionalFormats().addSpecificTextRule(
+                      $.wijmo.wijspread.TextComparisonOperator.Contains
+                    , $("#search_text").val()
+                    , style
+                    , [new $.wijmo.wijspread.Range(0, 0, sheet.getRowCount(), sheet.getColumnCount())]
+            );
+
+            sheet.invalidateLayout();
+            sheet.repaint();
+        };
+
+        function btnClear_Click(event) {
+            var spread  = $("#ss").wijspread("spread");
+            var sheet = spread.getActiveSheet();
+            clearRule(sheet);
+
+            sheet.invalidateLayout();
+            sheet.repaint();
+        };
+
+        function btnAddRow_Click(event) {
+            var spread  = $("#ss").wijspread("spread");
+            var sheet = spread.getActiveSheet();
+            sheet.addRows(sheet.getActiveRowIndex(), 1);
+        };
+
+        function btnDelRow_Click(event) {
+            var spread  = $("#ss").wijspread("spread");
+            var sheet = spread.getActiveSheet();
+            if(sheet.getActiveRowIndex() >= 0) {
+                sheet.deleteRows(sheet.getActiveRowIndex(), 1);
+            }
+        };
+    </script>
+
+</head>
+<body class="demo-single">
+<div class="container">
+    <div class="header">
+        <h2>SpreadJS Scrolling</h2>
+    </div>
+    <div class="main demo">
+        <div id="ss" style="width:100%; height:400px;border: 1px solid gray; "></div>
+
+        <div class="demo-options">
+            <div class="option-row">
+                <input type="text" id="search_text"/>
+                <input type="button" value="Search" onclick="btnSearch_Click(event)"/>
+                <input type="button" value="Clear" onclick="btnClear_Click(event)"/>
+            </div>
+            <div class="option-row">
+                <input type="button" value="Add Row" onclick="btnAddRow_Click(event)"/>
+                <input type="button" value="Delete Row" onclick="btnDelRow_Click(event)"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer demo-description">
+        <p>
+            Part of an OA application, manipulate employee records of the application, the UI provide normal operations like adding, deleting, editing, searching, sort and filter.
+        </p>
+    </div>
+</div>
+</body>
+</html>

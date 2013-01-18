@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>SpreadJS - Samples</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <!--Theme-->
+    <!--<link href="http://cdn.wijmo.com/themes/rocket/jquery-wijmo.css" class="wijmo-stylesheet-wijmo-theme" rel="stylesheet" type="text/css" title="rocket-jqueryui" />-->
+    <link href="../css/cobalt/jquery-wijmo.css" class="wijmo-stylesheet-wijmo-theme" rel="stylesheet" type="text/css" title="rocket-jqueryui" />
+    <!--Wijmo Widgets CSS-->
+    <link href="explore/css/jquery.wijmo-complete.all.2.2.0.min.css" rel="stylesheet" type="text/css" />
+    <!--Widget Explorer CSS-->
+    <link href="explore/css/style.css" rel="stylesheet" type="text/css" />
+    <!--jQuery References-->
+    <script src="../scripts/jquery-1.8.2.js" type="text/javascript"></script>
+    <script src="../scripts/jquery-ui-1.9.1.custom.min.js" type="text/javascript"></script>
+    <script src="explore/js/modernizr-2.5.3.js" type="text/javascript"></script>
+    <!--Sample Dependencies-->
+    <script src="explore/js/amplify.core.min.js" type="text/javascript"></script>
+    <script src="explore/js/amplify.store.min.js" type="text/javascript"></script>
+    <script src="explore/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="explore/js/jquery.tmpl.min.js" type="text/javascript"></script>
+    <script src="explore/js/swfobject.js" type="text/javascript"></script>
+    <!--Wijmo Widgets JavaScript-->
+    <script src="explore/js/jquery.wijmo-open.all.2.3.0.min.js" type="text/javascript"></script>
+    <script src="explore/js/jquery.wijmo-complete.all.2.3.0.min.js" type="text/javascript"></script>
+    <!--Globalize Cultures-->
+    <script src="explore/js/globalize.cultures.js" type="text/javascript"></script>
+    <!--Knockout and Knockout Integration Library for Wijmo-->
+    <script src="../scripts/knockout-2.1.0.js" type="text/javascript"></script>
+    <script src="explore/js/knockout.wijmo.js" type="text/javascript"></script>
+    <!--Widget Explorer Scripts-->
+    <script src="explore/js/ControlList.js" type="text/javascript"></script>
+    <script src="explore/js/explore.js" type="text/javascript"></script>
+    <script src="explore/js/native.history.js" type="text/javascript"></script>
+    <link href="explore/css/shCoreDefault.css" rel="stylesheet" type="text/css" />
+    <link href="explore/css/shThemeMidnight.css" rel="stylesheet" type="text/css" />
+    <script src="explore/js/shCore.js" type="text/javascript"></script>
+    <script src="explore/js/shBrushJScript.js" type="text/javascript"></script>
+    <script src="explore/js/shBrushXml.js" type="text/javascript"></script>
+    <script src="explore/js/shBrushCss.js" type="text/javascript"></script>
+
+    <!--SpreadJS Javascripts-->
+    <link rel="stylesheet" href="../css/gcfilter-ui.css"/>
+    <link href="../css/jquery.wijmo.wijsuperpanel.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="../scripts/jquery.wijmo.wijspread.full.min.js"></script>
+
+    <script>
+
+        //Fix when wijtheme changed, network delay problem
+        var lastThemeBackColor = "";
+        function readyTheme() {
+            var current = $(GrapeCity.UI.Global.prototype._dummyHeader).css("backgroundColor");
+            if(current !== lastThemeBackColor && lastThemeBackColor !== "") {
+                lastThemeBackColor = "";
+                var spread = $("#ss").wijspread("spread");
+                if(spread && spread.repaint) {
+                    spread.invalidateLayout();
+                    spread.repaint();
+                }
+                return;
+            }
+
+            setTimeout(readyTheme, 100);
+            lastThemeBackColor = current;
+        }
+        function wijomtheme_Change(event) {
+            readyTheme();
+        }
+    </script>
+</head>
+
+<body>
+<div>
+    <div class="wrapper">
+        <header>
+            <div class="branding ui-helper-clearfix">
+                <h1 id="logo"> <a href="http://wijmo.com/">SpreadJS - UI for the web</a></h1>
+                <div id="button-container"> <a class="downloadlink" href="http://wijmo.com/downloads/"><span class="downloadlink-inner"><span class="download-get">Get</span> <span class="download-wijmo">SpreadJS</span> </span></a> </div>
+            </div>
+            <div class="title-bar-container">
+                <div class="title-bar ui-helper-clearfix">
+                    <div class="menu-container">
+                        <div class="menu-extender"> </div>
+                        <div class="padder">
+                            <span style="display: none;" data-bind="if: mode() != 'widgets'">
+                                <a id="WidgetsHerf" class="button" data-bind="click: setMode.bind($data, 'widgets')">
+                                    <img src="explore/images/dots.png">
+                                    <span style="display: none;">Widgets</span>
+                                </a>
+                            </span>
+                            <span data-bind="if: mode() == 'sample'">
+                                <a id="widget-home" class="button button-icon" data-bind="click: setMode.bind($data, 'home')">
+                                    <img src="explore/images/home.png">
+                                </a>
+                           </span>
+                            <span data-bind="if: mode() == 'sample'">
+                                <select id="themes" data-bind="value: theme, wijdropdown: {}" onchange="wijomtheme_Change(event)">
+                                    <optgroup label="Wijmo">
+                                        <option value="../css/arctic/jquery-wijmo.css">Arctic</option>
+                                        <option value="../css/aristo/jquery-wijmo.css">Aristo</option>
+                                        <option value="../css/cobalt/jquery-wijmo.css" selected="selected">Cobalt</option>
+                                        <option value="../css/midnight/jquery-wijmo.css">Midnight</option>
+                                        <option value="../css/metro/jquery-wijmo.css">Metro</option>
+                                        <option value="../css/metro-dark/jquery-wijmo.css">Metro Dark</option>
+                                        <option value="../css/redmond/jquery-wijmo.css">RedMond</option>
+                                        <option value="../css/rocket/jquery-wijmo.css" >Rocket</option>
+                                        <option value="../css/sterling/jquery-wijmo.css">Sterling</option>
+                                    </optgroup>
+                                    <optgroup label="jQuery UI">
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/black-tie/jquery-ui.css">Black Tie</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/blitzer/jquery-ui.css">Blitzer</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/cupertino/jquery-ui.css">Cupertino</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/dark-hive/jquery-ui.css">Dark Hive</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/dot-luv/jquery-ui.css">Dot Luv</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/eggplant/jquery-ui.css">Eggplant</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/excite-bike/jquery-ui.css">Excite Bike</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/flick/jquery-ui.css">Flick</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/hot-sneaks/jquery-ui.css">Hot Sneaks</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/humanity/jquery-ui.css">Humanity</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/le-frog/jquery-ui.css">Le Frog</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/mint-choc/jquery-ui.css">Mint Chocolate</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/overcast/jquery-ui.css">overcast</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/pepper-grinder/jquery-ui.css">Pepper Grinder</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/redmond/jquery-ui.css">Redmond</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/smoothness/jquery-ui.css">Smoothness</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/south-street/jquery-ui.css">South Street</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/start/jquery-ui.css">Start</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/sunny/jquery-ui.css">Sunny</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/swanky-purse/jquery-ui.css">Swanky Purse</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/trontastic/jquery-ui.css">Trontastic</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/ui-darkness/jquery-ui.css">UI Darkness</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/ui-lightness/jquery-ui.css">UI Lightness</option>
+                                        <option value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/themes/vader/jquery-ui.css">Vader</option>
+                                    </optgroup>
+                                </select>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="ribbon">
+                        <div class="ribbon-right"> </div>
+                        <h2 data-bind="text: title"> Welcome</h2>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div data-bind="hisShow: {selector: 'section', value: mode()}" >
+            <section class="sectionhome ui-helper-clearfix intro-container">
+                <div class="column intro">
+                    <div class="padder">
+                        <h3 class="page-title"> Everything You Need to Build a Better Web</h3>
+                        <p>SpreadJS is the embedded programmable spreadsheet platform for the creation of web applications for advanced business,
+                            engineering and scientific applications. It is built on Jquery UI and powered by HTML5. It is satisfactory for viewing, editing and programming when you use spreadsheet.And from your customers’ perspective, it's very convenient to use.
+                        </p>
+                    </div>
+                </div>
+                <div class="column feed">
+                    <div class="padder">
+                        <h3 class="page-title">Use Cases</h3>
+                        <ul class="favorite-widgets widget-icons ui-helper-clearfix" data-bind="foreach: widgetUseCases()">
+                            <li><a data-bind="attr: {href: name }, click: $parent.selectWidget"> <img data-bind="attr: { src: imageUrl }" /> <span data-bind="text: name"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="padder">
+                        <h3 class="page-title">Features</h3>
+                        <ul id="ul_FavoriteWidgets" class="favorite-widgets widget-icons ui-helper-clearfix" data-bind="foreach: widgetFavorites()">
+                            <li><a data-bind="attr: {href: name }, click: $parent.selectWidget"> <img data-bind="attr: { src: imageUrl }" /> <span data-bind="text: name"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="nosidebar sectionwidgets">
+                <article class="ui-helper-clearfix">
+                    <div class="main-content">
+                        <div class="padder">
+                            <ul id="ul_Widgets" class="widget-icons widget-icons-grid ui-helper-clearfix" data-bind="foreach: widgetList()">
+                                <li><a data-bind="attr: {href: name }, click: $parent.selectWidget"> <img data-bind="attr: { src: imageUrl }" /> <span data-bind="text: name"></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+            </section>
+            <section class="sectionsample">
+                <aside data-bind="">
+                    <div class="padder">
+                        <h4 class="sample-title"> Samples</h4>
+                        <div role="secondary" class="secondary">
+                            <div class="samples" data-bind="wijsuperpanel: { vScroller: { scrollMode: 'scrollbar',scrollBarVisibility: 'auto' } }">
+                                <!-- ko with: currentWidget -->
+                                <ul id="sampleList" class="sample-list" data-bind="foreach: actions">
+                                    <li data-bind="attr: { class: page == $root.currentPage() ? 'demo-config-on' : '' }"><a data-bind="attr: { href: page }, click: $root.selectSample"><span data-bind="text: name"></span></a></li>
+                                </ul>
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+                <article class="ui-helper-clearfix">
+                    <div class="main-content">
+                        <div class="padder">
+                            <h3 class="main-sample-title" id="sampleTitle" data-bind="text: sampleTitle"> Overview</h3>
+                            <div id="ctl00_WidgetTabs" data-bind="wijtabs: { }">
+                                <ul id="ctl00_WidgetTabs_ul">
+                                    <li><a href="#SampleContainer">Sample</a></li>
+                                    <li><a href="#InfoContainer">Info</a></li>
+                                    <li><a href="#SourceContainer">Source</a></li>
+                                    <!-- ko with: currentWidget -->
+                                    <!--<li><a id="DocLink" href="#DocContainer" data-bind="attr: { href: documentation }">Docs <span class="ui-icon ui-icon-newwin"></span></a></li>-->
+                                    <!-- /ko -->
+                                </ul>
+                                <div id="SampleContainer" class="SampleContainer">
+                                    <div data-bind="html: sample"> </div>
+                                </div>
+                                <div id="InfoContainer" class="InfoContainer">
+                                    <div data-bind="html: info"> </div>
+                                </div>
+                                <div id="SourceContainer" class="SourceContainer">
+                                    <div> </div>
+                                </div>
+                                <!--<div id="DocContainer" class="DocContainer"> </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </div>
+        <footer class="ui-helper-clearfix footer" id="colophon">
+            <p> © 2012 GrapeCity, Inc. All Rights Reserved. All product and company names herein may be trademarks of their respective owners. </p>
+            <!--<div class="social"> <a href="http://twitter.com/wijmo"> <img src="explore/images/picons33.png" alt="Twitter" /></a> <a href="http://facebook.com/wijmo"> <img src="explore/images/picons36.png" alt="Twitter" /></a> </div>-->
+        </footer>
+    </div>
+</div>
+</body>
+
+</html>

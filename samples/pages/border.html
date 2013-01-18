@@ -1,0 +1,318 @@
+<!doctype html>
+<html>
+
+<head>
+<title>SpreadJS - Border</title>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="description" content="%description%"/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" href="../../css/gcfilter-ui.css"/>
+
+<link href="../../css/cobalt/jquery-wijmo.css" rel="stylesheet" type="text/css" title="rocket-jqueryui"/>
+<link href="../../css/jquery.wijmo.wijsuperpanel.css" rel="stylesheet" type="text/css"/>
+
+<script src="../../scripts/jquery-1.8.2.min.js" type="text/javascript"></script>
+<script src="../../scripts/jquery-ui-1.9.1.custom.min.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="../../scripts/jquery.wijmo.wijspread.full.min.js"></script>
+
+<script type="text/javascript">
+var colorArray = ["Red", "Green", "Blue", "Black"];
+var lineStyleArray = [
+    $.wijmo.wijspread.LineStyle.dashDotDot,
+    $.wijmo.wijspread.LineStyle.medium,
+    $.wijmo.wijspread.LineStyle.thick,
+    $.wijmo.wijspread.LineStyle.double
+];
+
+
+$(document).ready(function () {
+    $("#ss").wijspread({sheetCount:1});
+
+    var spread = $("#ss").wijspread("spread");
+    spread.useWijmoTheme = true;
+
+    var sheet = spread.getActiveSheet();
+
+    sheet.isPaintSuspended(true);
+    // Four cells have same border
+    var index = 0;
+    setBorder(sheet.getCell(1, 1), new $.wijmo.wijspread.LineBorder(getColor(index + 0), getBorderLineStyle(index)));
+    setBorder(sheet.getCell(1, 2), new $.wijmo.wijspread.LineBorder(getColor(index + 1), getBorderLineStyle(index)));
+    setBorder(sheet.getCell(2, 1), new $.wijmo.wijspread.LineBorder(getColor(index + 2), getBorderLineStyle(index)));
+    setBorder(sheet.getCell(2, 2), new $.wijmo.wijspread.LineBorder(getColor(index + 3), getBorderLineStyle(index)));
+    index = 1;
+    setBorder(sheet.getCell(4, 1), new $.wijmo.wijspread.LineBorder(getColor(index + 0), getBorderLineStyle(index)));
+    setBorder(sheet.getCell(4, 2), new $.wijmo.wijspread.LineBorder(getColor(index + 1), getBorderLineStyle(index)));
+    setBorder(sheet.getCell(5, 1), new $.wijmo.wijspread.LineBorder(getColor(index + 2), getBorderLineStyle(index)));
+    setBorder(sheet.getCell(5, 2), new $.wijmo.wijspread.LineBorder(getColor(index + 3), getBorderLineStyle(index)));
+    index = 2;
+    setBorder(sheet.getCell(7, 1), new $.wijmo.wijspread.LineBorder(getColor(index + 0), getBorderLineStyle(index)));
+    setBorder(sheet.getCell(7, 2), new $.wijmo.wijspread.LineBorder(getColor(index + 1), getBorderLineStyle(index)));
+    setBorder(sheet.getCell(8, 1), new $.wijmo.wijspread.LineBorder(getColor(index + 2), getBorderLineStyle(index)));
+    setBorder(sheet.getCell(8, 2), new $.wijmo.wijspread.LineBorder(getColor(index + 3), getBorderLineStyle(index)));
+    index = 3;
+    setBorder(sheet.getCell(10, 1), new $.wijmo.wijspread.LineBorder(getColor(index + 0), getBorderLineStyle(index)));
+    setBorder(sheet.getCell(10, 2), new $.wijmo.wijspread.LineBorder(getColor(index + 1), getBorderLineStyle(index)));
+    setBorder(sheet.getCell(11, 1), new $.wijmo.wijspread.LineBorder(getColor(index + 2), getBorderLineStyle(index)));
+    setBorder(sheet.getCell(11, 2), new $.wijmo.wijspread.LineBorder(getColor(index + 3), getBorderLineStyle(index)));
+
+    // Four cells have same border, but border line are different
+    setCellsBorder([sheet.getCell(1, 4), sheet.getCell(1, 5), sheet.getCell(2, 4), sheet.getCell(2, 5)], 0);
+    setCellsBorder([sheet.getCell(4, 4), sheet.getCell(4, 5), sheet.getCell(5, 4), sheet.getCell(5, 5)], 1);
+    setCellsBorder([sheet.getCell(7, 4), sheet.getCell(7, 5), sheet.getCell(8, 4), sheet.getCell(8, 5)], 2);
+    setCellsBorder([sheet.getCell(10, 4), sheet.getCell(10, 5), sheet.getCell(11, 4), sheet.getCell(11, 5)], 3);
+
+    // Four cells have different border
+    index = 0;
+    setCellBorder(sheet.getCell(1, 7), index + 0);
+    setCellBorder(sheet.getCell(1, 8), index + 1);
+    setCellBorder(sheet.getCell(2, 7), index + 2);
+    setCellBorder(sheet.getCell(2, 8), index + 3);
+    index = 1;
+    setCellBorder(sheet.getCell(4, 7), index + 0);
+    setCellBorder(sheet.getCell(4, 8), index + 1);
+    setCellBorder(sheet.getCell(5, 7), index + 2);
+    setCellBorder(sheet.getCell(5, 8), index + 3);
+    index = 2;
+    setCellBorder(sheet.getCell(7, 7), index + 0);
+    setCellBorder(sheet.getCell(7, 8), index + 1);
+    setCellBorder(sheet.getCell(8, 7), index + 2);
+    setCellBorder(sheet.getCell(8, 8), index + 3);
+    index = 3;
+    setCellBorder(sheet.getCell(10, 7), index + 0);
+    setCellBorder(sheet.getCell(10, 8), index + 1);
+    setCellBorder(sheet.getCell(11, 7), index + 2);
+    setCellBorder(sheet.getCell(11, 8), index + 3);
+
+    // Merge cell border
+    var rowIndex = 14;
+    sheet.addSpan(rowIndex, 2, 5, 6);
+    sheet.setBorder(new $.wijmo.wijspread.Range(rowIndex, 2, 5, 6), new $.wijmo.wijspread.LineBorder("Purple", $.wijmo.wijspread.LineStyle.dashDotDot), {outline:true});
+    setBorder(sheet.getCell(rowIndex - 1, 3), new $.wijmo.wijspread.LineBorder("Red", $.wijmo.wijspread.LineStyle.dashDotDot));
+    setBorder(sheet.getCell(rowIndex - 1, 6), new $.wijmo.wijspread.LineBorder("Green", $.wijmo.wijspread.LineStyle.double));
+    setBorder(sheet.getCell(rowIndex + 1, 8), new $.wijmo.wijspread.LineBorder("Blue", $.wijmo.wijspread.LineStyle.thick));
+    setBorder(sheet.getCell(rowIndex + 3, 8), new $.wijmo.wijspread.LineBorder("Black", $.wijmo.wijspread.LineStyle.medium));
+    setBorder(sheet.getCell(rowIndex + 5, 6), new $.wijmo.wijspread.LineBorder("Red", $.wijmo.wijspread.LineStyle.medium));
+    setBorder(sheet.getCell(rowIndex + 5, 3), new $.wijmo.wijspread.LineBorder("Green", $.wijmo.wijspread.LineStyle.thick));
+    setBorder(sheet.getCell(rowIndex + 3, 1), new $.wijmo.wijspread.LineBorder("Blue", $.wijmo.wijspread.LineStyle.double));
+    setBorder(sheet.getCell(rowIndex + 1, 1), new $.wijmo.wijspread.LineBorder("Black", $.wijmo.wijspread.LineStyle.dashDotDot));
+
+    rowIndex += 8;
+    sheet.addSpan(rowIndex, 2, 5, 6);
+    sheet.setBorder(new $.wijmo.wijspread.Range(rowIndex, 2, 5, 6), new $.wijmo.wijspread.LineBorder("Purple", $.wijmo.wijspread.LineStyle.double), {outline:true});
+    setBorder(sheet.getCell(rowIndex - 1, 3), new $.wijmo.wijspread.LineBorder("Red", $.wijmo.wijspread.LineStyle.dashDotDot));
+    setBorder(sheet.getCell(rowIndex - 1, 6), new $.wijmo.wijspread.LineBorder("Green", $.wijmo.wijspread.LineStyle.double));
+    setBorder(sheet.getCell(rowIndex + 1, 8), new $.wijmo.wijspread.LineBorder("Blue", $.wijmo.wijspread.LineStyle.thick));
+    setBorder(sheet.getCell(rowIndex + 3, 8), new $.wijmo.wijspread.LineBorder("Black", $.wijmo.wijspread.LineStyle.medium));
+    setBorder(sheet.getCell(rowIndex + 5, 6), new $.wijmo.wijspread.LineBorder("Red", $.wijmo.wijspread.LineStyle.medium));
+    setBorder(sheet.getCell(rowIndex + 5, 3), new $.wijmo.wijspread.LineBorder("Green", $.wijmo.wijspread.LineStyle.thick));
+    setBorder(sheet.getCell(rowIndex + 3, 1), new $.wijmo.wijspread.LineBorder("Blue", $.wijmo.wijspread.LineStyle.double));
+    setBorder(sheet.getCell(rowIndex + 1, 1), new $.wijmo.wijspread.LineBorder("Black", $.wijmo.wijspread.LineStyle.dashDotDot));
+
+    rowIndex += 8;
+    sheet.addSpan(rowIndex, 2, 5, 6);
+    sheet.setBorder(new $.wijmo.wijspread.Range(rowIndex, 2, 5, 6), new $.wijmo.wijspread.LineBorder("Purple", $.wijmo.wijspread.LineStyle.thick), {outline:true});
+    setBorder(sheet.getCell(rowIndex - 1, 3), new $.wijmo.wijspread.LineBorder("Red", $.wijmo.wijspread.LineStyle.dashDotDot));
+    setBorder(sheet.getCell(rowIndex - 1, 6), new $.wijmo.wijspread.LineBorder("Green", $.wijmo.wijspread.LineStyle.double));
+    setBorder(sheet.getCell(rowIndex + 1, 8), new $.wijmo.wijspread.LineBorder("Blue", $.wijmo.wijspread.LineStyle.thick));
+    setBorder(sheet.getCell(rowIndex + 3, 8), new $.wijmo.wijspread.LineBorder("Black", $.wijmo.wijspread.LineStyle.medium));
+    setBorder(sheet.getCell(rowIndex + 5, 6), new $.wijmo.wijspread.LineBorder("Red", $.wijmo.wijspread.LineStyle.medium));
+    setBorder(sheet.getCell(rowIndex + 5, 3), new $.wijmo.wijspread.LineBorder("Green", $.wijmo.wijspread.LineStyle.thick));
+    setBorder(sheet.getCell(rowIndex + 3, 1), new $.wijmo.wijspread.LineBorder("Blue", $.wijmo.wijspread.LineStyle.double));
+    setBorder(sheet.getCell(rowIndex + 1, 1), new $.wijmo.wijspread.LineBorder("Black", $.wijmo.wijspread.LineStyle.dashDotDot));
+
+    rowIndex += 8;
+    sheet.addSpan(rowIndex, 2, 5, 6);
+    sheet.setBorder(new $.wijmo.wijspread.Range(rowIndex, 2, 5, 6), new $.wijmo.wijspread.LineBorder("Purple", $.wijmo.wijspread.LineStyle.medium), {outline:true});
+    setBorder(sheet.getCell(rowIndex - 1, 3), new $.wijmo.wijspread.LineBorder("Red", $.wijmo.wijspread.LineStyle.dashDotDot));
+    setBorder(sheet.getCell(rowIndex - 1, 6), new $.wijmo.wijspread.LineBorder("Green", $.wijmo.wijspread.LineStyle.double));
+    setBorder(sheet.getCell(rowIndex + 1, 8), new $.wijmo.wijspread.LineBorder("Blue", $.wijmo.wijspread.LineStyle.thick));
+    setBorder(sheet.getCell(rowIndex + 3, 8), new $.wijmo.wijspread.LineBorder("Black", $.wijmo.wijspread.LineStyle.medium));
+    setBorder(sheet.getCell(rowIndex + 5, 6), new $.wijmo.wijspread.LineBorder("Red", $.wijmo.wijspread.LineStyle.medium));
+    setBorder(sheet.getCell(rowIndex + 5, 3), new $.wijmo.wijspread.LineBorder("Green", $.wijmo.wijspread.LineStyle.thick));
+    setBorder(sheet.getCell(rowIndex + 3, 1), new $.wijmo.wijspread.LineBorder("Blue", $.wijmo.wijspread.LineStyle.double));
+    setBorder(sheet.getCell(rowIndex + 1, 1), new $.wijmo.wijspread.LineBorder("Black", $.wijmo.wijspread.LineStyle.dashDotDot));
+
+    var count = lineStyleArray.length;
+    for (var l = 0; l < count; l++) // left side border of joint
+    {
+        var rows = 0;
+        for (var t = 0; t < count; t++) // top side border of joint
+        {
+            for (var r = 0; r < count; r++) // right side border of joint
+            {
+                for (var b = 0; b < count; b++) // bottom side border of joint
+                {
+                    sheet.getCell(rows, l * 2 + 10).borderBottom(l == count ? null : new $.wijmo.wijspread.LineBorder(getColor(l), getBorderLineStyle(l)));
+                    sheet.getCell(rows, l * 2 + 11).borderLeft(t == count ? null : new $.wijmo.wijspread.LineBorder(getColor(t), getBorderLineStyle(t)));
+                    sheet.getCell(rows, l * 2 + 11).borderBottom(r == count ? null : new $.wijmo.wijspread.LineBorder(getColor(r), getBorderLineStyle(r)));
+                    sheet.getCell(rows + 1, l * 2 + 10).borderRight(b == count ? null : new $.wijmo.wijspread.LineBorder(getColor(b), getBorderLineStyle(b)));
+                    rows += 2;
+                }
+            }
+        }
+    }
+
+    sheet.isPaintSuspended(false);
+});
+
+function setBorder(cell, border) {
+    if (border) {
+        cell.borderLeft(new $.wijmo.wijspread.LineBorder(border.color, border.style));
+        cell.borderTop(new $.wijmo.wijspread.LineBorder(border.color, border.style));
+        cell.borderRight(new $.wijmo.wijspread.LineBorder(border.color, border.style));
+        cell.borderBottom(new $.wijmo.wijspread.LineBorder(border.color, border.style));
+    } else {
+        cell.borderLeft(null);
+        cell.borderTop(null);
+        cell.borderRight(null);
+        cell.borderBottom(null);
+    }
+}
+
+function setCellsBorder(cells, index) {
+    for (var i = 0; i < cells.length; i++) {
+        setCellBorder(cells[i], index);
+    }
+}
+
+function setCellBorder(cell, index) {
+    var left = new $.wijmo.wijspread.LineBorder(getColor(index + 0), getBorderLineStyle(index + 0));
+    var top = new $.wijmo.wijspread.LineBorder(getColor(index + 1), getBorderLineStyle(index + 1));
+    var right = new $.wijmo.wijspread.LineBorder(getColor(index + 2), getBorderLineStyle(index + 2));
+    var bottom = new $.wijmo.wijspread.LineBorder(getColor(index + 3), getBorderLineStyle(index + 3));
+    cell.borderLeft(left);
+    cell.borderTop(top);
+    cell.borderRight(right);
+    cell.borderBottom(bottom);
+}
+
+function getColor(index) {
+    return colorArray[index % colorArray.length];
+}
+
+function getBorderLineStyle(index) {
+    return lineStyleArray[index % lineStyleArray.length];
+}
+
+function getActualCellRange(cellRange, rowCount, columnCount) {
+    if (cellRange.row == -1 && cellRange.col == -1) {
+        return new $.wijmo.wijspread.Range(0, 0, rowCount, columnCount);
+    }
+    else if (cellRange.row == -1) {
+        return new $.wijmo.wijspread.Range(0, cellRange.col, rowCount, cellRange.colCount);
+    }
+    else if (cellRange.col == -1) {
+        return new $.wijmo.wijspread.Range(cellRange.row, 0, cellRange.rowCount, columnCount);
+    }
+
+    return cellRange;
+}
+;
+
+function btnSetBorder_Click(event) {
+    var ss = $("#ss").wijspread("spread");
+    var sheet = ss.getActiveSheet();
+
+    var color = $("#border_color").val();
+    var style = parseInt($("#border_style").val());
+    var lineBorder = new $.wijmo.wijspread.LineBorder(color, style);
+
+    var sels = sheet.getSelections();
+    for (var n = 0; n < sels.length; n++) {
+        var sel = getActualCellRange(sels[n], sheet.getRowCount(), sheet.getColumnCount());
+        sheet.setBorder(sel, lineBorder, {all:true});
+    }
+}
+;
+
+function btnClearBorder_Click(event) {
+    var ss = $("#ss").wijspread("spread");
+    var sheet = ss.getActiveSheet();
+
+    var sels = sheet.getSelections();
+    for (var n = 0; n < sels.length; n++) {
+        var sel = getActualCellRange(sels[n], sheet.getRowCount(), sheet.getColumnCount());
+        sheet.setBorder(sel, null, {all:true});
+    }
+}
+;
+
+function btnSetGridLine_Click(event) {
+    var ss = $("#ss").wijspread("spread");
+    var sheet = ss.getActiveSheet();
+
+    var color = $("#gridline_color").val();
+    sheet.gridline.color = color;
+    sheet.invalidateLayout();
+    sheet.repaint();
+}
+;
+
+function btnShowGridLine_Click(event) {
+    var ss = $("#ss").wijspread("spread");
+    var sheet = ss.getActiveSheet();
+
+    var checked = $("#gridline_show").prop("checked");
+    sheet.gridline.showHorizontalGridline = checked;
+    sheet.gridline.showVerticalGridline = checked;
+    sheet.invalidateLayout();
+    sheet.repaint();
+}
+;
+
+</script>
+</head>
+<body class="demo-single">
+<div class="container">
+    <div class="header">
+        <h2>SpreadJS Border</h2>
+    </div>
+    <div class="main demo">
+        <div id="ss" style="width:100%; height:400px;border: 1px solid gray;"></div>
+
+        <div class="demo-options">
+            <div class="option-row">
+                <label for="border_style">Border Style:</label>
+                <select id="border_style" class="position">
+                    <option value="0">Empty</option>
+                    <option value="1">Thin</option>
+                    <option value="2">Medium</option>
+                    <option value="3">Dashed</option>
+                    <option value="4">Dotted</option>
+                    <option value="5">Thick</option>
+                    <option value="6">Double</option>
+                    <option value="7">Hair</option>
+                    <option value="8">MediumDashed</option>
+                    <option value="9">DashDot</option>
+                    <option value="10">MediumDashDot</option>
+                    <option value="11">DashDotDot</option>
+                    <option value="12">MediumDashDotDot</option>
+                    <option value="13">SlanteDashDot</option>
+                </select>
+                <label>Border Color:</label>
+                <input type="text" id="border_color" value="(none)"/>
+                <input type="button" value="SetBorder" onclick="btnSetBorder_Click(event)"/>
+                <input type="button" value="ClearBorder" onclick="btnClearBorder_Click(event)"/>
+            </div>
+            <div class="option-row">
+                <label>GridLine Color:</label>
+                <input type="text" id="gridline_color" value="(none)"/>
+                <input type="button" value="SetGridLine" onclick="btnSetGridLine_Click(event)"/>
+                <input type="checkbox" id="gridline_show" checked onclick="btnShowGridLine_Click(event)"/>
+                <label for="gridline_show">ShowGridLine</label>
+            </div>
+        </div>
+    </div>
+    <div class="footer demo-description">
+        <p>
+            Excel-like border and girdlines. Select a range of cells, and set borders by colors and line styles.
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

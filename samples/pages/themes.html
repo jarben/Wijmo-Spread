@@ -1,0 +1,283 @@
+<!doctype html>
+
+<head>
+    <title>SpreadJS - Skin</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="description" content="%description%"/>
+    <meta name="keywords" content=""/>
+
+    <link rel="stylesheet" href="../../css/gcfilter-ui.css"/>
+
+    <link href="../../css/cobalt/jquery-wijmo.css" rel="stylesheet" type="text/css" title="rocket-jqueryui"/>
+    <link href="../../css/jquery.wijmo.wijsuperpanel.css" rel="stylesheet" type="text/css"/>
+
+    <script src="../../scripts/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="../../scripts/jquery-ui-1.9.1.custom.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="../../scripts/jquery.wijmo.wijspread.full.min.js"></script>
+
+    <script id="scriptInit" type="text/javascript">
+        $(document).ready(function () {
+            $("#ss").wijspread({sheetCount:1});
+
+            var spread = $("#ss").wijspread("spread");
+            spread.useWijmoTheme = true;
+            var sheet = spread.getActiveSheet();
+            sheet.isPaintSuspended(true);
+            sheet.setColumnWidth(0, 22);
+            sheet.setColumnWidth(1, 30);
+            sheet.setColumnWidth(2, 22);
+            sheet.getCell(1, 3).value("Theme Colors").themeFont("headings").hAlign($.wijmo.wijspread.HorizontalAlign.center);
+            sheet.addSpan(1, 3, 1, 10);
+
+            sheet.getCell(2, 3).text("Background 1").themeFont("Body");
+            sheet.getCell(2, 4).text("Text 1").themeFont("Body");
+            sheet.getCell(2, 5).text("Background 2").themeFont("Body");
+            sheet.getCell(2, 6).text("Text 2").themeFont("Body");
+            sheet.getCell(2, 7).text("Accent 1").themeFont("Body");
+            sheet.getCell(2, 8).text("Accent 2").themeFont("Body");
+            sheet.getCell(2, 9).text("Accent 3").themeFont("Body");
+            sheet.getCell(2, 10).text("Accent 4").themeFont("Body");
+            sheet.getCell(2, 11).text("Accent 5").themeFont("Body");
+            sheet.getCell(2, 12).text("Accent 6").themeFont("Body");
+
+            sheet.getCell(3, 1).value("100").themeFont("Body");
+
+            sheet.getCell(3, 3).backColor("Background 1");
+            sheet.getCell(3, 4).backColor("Text 1");
+            sheet.getCell(3, 5).backColor("Background 2");
+            sheet.getCell(3, 6).backColor("Text 2");
+            sheet.getCell(3, 7).backColor("Accent 1");
+            sheet.getCell(3, 8).backColor("Accent 2");
+            sheet.getCell(3, 9).backColor("Accent 3");
+            sheet.getCell(3, 10).backColor("Accent 4");
+            sheet.getCell(3, 11).backColor("Accent 5");
+            sheet.getCell(3, 12).backColor("Accent 6");
+
+            sheet.getCell(5, 1).value("80").themeFont("Body");
+
+            sheet.getCell(5, 3).backColor("Background 1 80");
+            sheet.getCell(5, 4).backColor("Text 1 80");
+            sheet.getCell(5, 5).backColor("Background 2 80");
+            sheet.getCell(5, 6).backColor("Text 2 80");
+            sheet.getCell(5, 7).backColor("Accent 1 80");
+            sheet.getCell(5, 8).backColor("Accent 2 80");
+            sheet.getCell(5, 9).backColor("Accent 3 80");
+            sheet.getCell(5, 10).backColor("Accent 4 80");
+            sheet.getCell(5, 11).backColor("Accent 5 80");
+            sheet.getCell(5, 12).backColor("Accent 6 80");
+
+            sheet.getCell(6, 1).value("60").themeFont("Body");
+
+            sheet.getCell(6, 3).backColor("Background 1 60");
+            sheet.getCell(6, 4).backColor("Text 1 60");
+            sheet.getCell(6, 5).backColor("Background 2 60");
+            sheet.getCell(6, 6).backColor("Text 2 60");
+            sheet.getCell(6, 7).backColor("Accent 1 60");
+            sheet.getCell(6, 8).backColor("Accent 2 60");
+            sheet.getCell(6, 9).backColor("Accent 3 60");
+            sheet.getCell(6, 10).backColor("Accent 4 60");
+            sheet.getCell(6, 11).backColor("Accent 5 60");
+            sheet.getCell(6, 12).backColor("Accent 6 60");
+
+            sheet.getCell(7, 1).value("40").themeFont("Body");
+
+            sheet.getCell(7, 3).backColor("Background 1 40");
+            sheet.getCell(7, 4).backColor("Text 1 40");
+            sheet.getCell(7, 5).backColor("Background 2 40");
+            sheet.getCell(7, 6).backColor("Text 2 40");
+            sheet.getCell(7, 7).backColor("Accent 1 40");
+            sheet.getCell(7, 8).backColor("Accent 2 40");
+            sheet.getCell(7, 9).backColor("Accent 3 40");
+            sheet.getCell(7, 10).backColor("Accent 4 40");
+            sheet.getCell(7, 11).backColor("Accent 5 40");
+            sheet.getCell(7, 12).backColor("Accent 6 40");
+
+            sheet.getCell(8, 1).value("-25").themeFont("Body");
+
+            sheet.getCell(8, 3).backColor("Background 1 -25");
+            sheet.getCell(8, 4).backColor("Text 1 -25");
+            sheet.getCell(8, 5).backColor("Background 2 -25");
+            sheet.getCell(8, 6).backColor("Text 2 -25");
+            sheet.getCell(8, 7).backColor("Accent 1 -25");
+            sheet.getCell(8, 8).backColor("Accent 2 -25");
+            sheet.getCell(8, 9).backColor("Accent 3 -25");
+            sheet.getCell(8, 10).backColor("Accent 4 -25");
+            sheet.getCell(8, 11).backColor("Accent 5 -25");
+            sheet.getCell(8, 12).backColor("Accent 6 -25");
+
+            sheet.getCell(9, 1).value("-50").themeFont("Body");
+
+            sheet.getCell(9, 3).backColor("Background 1 -50");
+            sheet.getCell(9, 4).backColor("Text 1 -50");
+            sheet.getCell(9, 5).backColor("Background 2 -50");
+            sheet.getCell(9, 6).backColor("Text 2 -50");
+            sheet.getCell(9, 7).backColor("Accent 1 -50");
+            sheet.getCell(9, 8).backColor("Accent 2 -50");
+            sheet.getCell(9, 9).backColor("Accent 3 -50");
+            sheet.getCell(9, 10).backColor("Accent 4 -50");
+            sheet.getCell(9, 11).backColor("Accent 5 -50");
+            sheet.getCell(9, 12).backColor("Accent 6 -50");
+
+            sheet.isPaintSuspended(false);
+        });
+
+        function currentThemes_Change() {
+            var ss = $("#ss").wijspread("spread");
+            var sheet = ss.getActiveSheet();
+            $("#theme_index")
+            $("#currentthemes option:selected").each(function () {
+                sheet.currentTheme(this.text);
+            });
+
+            ss.invalidateLayout();
+            ss.repaint();
+        };
+
+        function themetype_Change(event) {
+            $("#theme_index").empty();
+
+            var themeType = $("#theme_type").val();
+            if(themeType == "Accent") {
+                $("<option value='1'>1</option>").appendTo("#theme_index");
+                $("<option value='2'>2</option>").appendTo("#theme_index");
+                $("<option value='3'>3</option>").appendTo("#theme_index");
+                $("<option value='4'>4</option>").appendTo("#theme_index");
+                $("<option value='5'>5</option>").appendTo("#theme_index");
+                $("<option value='6'>6</option>").appendTo("#theme_index");
+            } else {
+                $("<option value='1'>1</option>").appendTo("#theme_index");
+                $("<option value='2'>2</option>").appendTo("#theme_index");
+            }
+        };
+
+        function btnSetForeground_Click(event) {
+            var ss = $("#ss").wijspread("spread");
+            var sheet = ss.getActiveSheet();
+
+            var brightness = parseInt($("#theme_brightness").val());
+            if(isNaN(brightness)) return;
+            if(brightness < -100) {
+                brightness = -100;
+            } else if(brightness > 100) {
+                brightness = 100;
+            }
+
+            var theme = $("#theme_type").val() + " " + $("#theme_index").val() + " " + brightness.toString();
+            var ranges = sheet.getSelections();
+            for(var i =0 ; i < ranges.length; i++) {
+                var range = getActualCellRange(ranges[i], sheet.getRowCount(), sheet.getColumnCount());
+                for (var i = 0; i < range.rowCount; i++) {
+                    for (var j = 0; j < range.colCount; j++) {
+                        sheet.getCell(range.row + i, range.col + j).foreColor(theme);
+                    }
+                }
+            }
+        };
+
+        function btnSetBackground_Click(event) {
+            var ss = $("#ss").wijspread("spread");
+            var sheet = ss.getActiveSheet();
+
+            var brightness = parseInt($("#theme_brightness").val());
+            if(isNaN(brightness)) return;
+            if(brightness < -100) {
+                brightness = -100;
+            } else if(brightness > 100) {
+                brightness = 100;
+            }
+
+            var theme = $("#theme_type").val() + " " + $("#theme_index").val() + " " + brightness.toString();
+            var ranges = sheet.getSelections();
+            for(var i =0 ; i < ranges.length; i++) {
+                var range = getActualCellRange(ranges[i], sheet.getRowCount(), sheet.getColumnCount());
+                for (var i = 0; i < range.rowCount; i++) {
+                    for (var j = 0; j < range.colCount; j++) {
+                        sheet.getCell(range.row + i, range.col + j).backColor(theme);
+                    }
+                }
+            }
+        };
+
+        function getActualCellRange(cellRange, rowCount, columnCount) {
+            if (cellRange.row == -1 && cellRange.col == -1) {
+                return new $.wijmo.wijspread.Range(0, 0, rowCount, columnCount);
+            }
+            else if (cellRange.row == -1) {
+                return new $.wijmo.wijspread.Range(0, cellRange.col, rowCount, cellRange.colCount);
+            }
+            else if (cellRange.col == -1) {
+                return new $.wijmo.wijspread.Range(cellRange.row, 0, cellRange.rowCount, columnCount);
+            }
+
+            return cellRange;
+        };
+    </script>
+
+</head>
+<body class="demo-single">
+<div class="container">
+    <div class="header">
+        <h2>SpreadJS Themes</h2>
+    </div>
+    <div class="main demo">
+        <div id="ss" style="width:100%; height:400px;border: 1px solid gray; "></div>
+
+        <div class="demo-options">
+            <div class="option-row">
+                <label>Changed Document Theme:</label>
+                <select id="currentthemes" class="position" onchange="currentThemes_Change(event)">
+                    <option selected>Default</option>
+                    <option>Office</option>
+                    <option>Apex</option>
+                    <option>Aspect</option>
+                    <option>Concourse</option>
+                    <option>Civic</option>
+                    <option>Oriel</option>
+                    <option>Origin</option>
+                    <option>Paper</option>
+                    <option>Solstice</option>
+                    <option>Technic</option>
+                    <option>Trek</option>
+                    <option>Urban</option>
+                    <option>Verve</option>
+                    <option>Equity</option>
+                    <option>Flow</option>
+                    <option>Foundry</option>
+                    <option>Median</option>
+                    <option>Metro</option>
+                    <option>Module</option>
+                    <option>Opulent</option>
+                </select>
+            </div>
+            <div class="option-row">
+                <select id="theme_type" class="position" onchange="themetype_Change(event)">
+                    <option value="Accent">Accent</option>
+                    <option value="Background">Background</option>
+                    <option value="Text">Text</option>
+                </select>
+                <select id="theme_index" class="position">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+                <label for="theme_brightness">Brightness(-100 - 100):</label>
+                <input type="text" id="theme_brightness" value="50"/>
+                <input type="button" value="Set Background" onclick="btnSetBackground_Click(event)"/>
+                <input type="button" value="Set Foreground" onclick="btnSetForeground_Click(event)"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer demo-description">
+        <p>
+            Changes the overall design of the entire document, including colors, fonts.
+        </p>
+    </div>
+</div>
+</body>
+</html>

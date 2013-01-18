@@ -1,0 +1,207 @@
+<!doctype html>
+
+<head>
+    <title>SpreadJS - ConditionFormatter</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="description" content="%description%"/>
+    <meta name="keywords" content=""/>
+
+    <link rel="stylesheet" href="../../css/gcfilter-ui.css"/>
+
+    <link href="../../css/cobalt/jquery-wijmo.css" rel="stylesheet" type="text/css" title="rocket-jqueryui"/>
+    <link href="../../css/jquery.wijmo.wijsuperpanel.css" rel="stylesheet" type="text/css"/>
+
+    <script src="../../scripts/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="../../scripts/jquery-ui-1.9.1.custom.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="../../scripts/jquery.wijmo.wijspread.full.min.js"></script>
+
+    <script id="scriptInit" type="text/javascript">
+        $(document).ready(function () {
+            $("#ss").wijspread({sheetCount:1});
+
+            var spread = $("#ss").wijspread("spread");
+            spread.useWijmoTheme = true;
+            var sheet  = spread.getActiveSheet();
+
+            sheet.isPaintSuspended(true);
+
+            sheet.setColumnWidth(0, 5);
+            sheet.setColumnWidth(7, 5);
+
+            // sample title
+            sheet.addSpan(1, 1, 1, 13);
+            sheet.setValue(1, 1, "Conditional Format Samples");
+            sheet.getCell(1, 1).font("24px sans-serif");
+            sheet.getCell(1, 1).hAlign( $.wijmo.wijspread.HorizontalAlign.center);
+            sheet.setRowHeight(1, 35);
+
+            // cell value rule
+            var r = 3; var c = 1; var w = 6; var h = 4;
+            sheet.addSpan(r, c, 1, w);
+            sheet.setValue(r, c, "Displays green background if cell value is greater than 100:");
+            var increase = 0;
+            for (var row = 0; row < h - 1; row++)
+            {
+                for (var col = 0; col < w; col++)
+                {
+                    sheet.setValue(row + 4, col + 1, increase);
+                    increase += 10;
+                }
+            }
+            sheet.setBorder(new $.wijmo.wijspread.Range(r, c, h, w), new $.wijmo.wijspread.LineBorder("Black", $.wijmo.wijspread.LineStyle.dashed),  {all:true});
+            var cvRule = new $.wijmo.wijspread.CellValueRule();
+            cvRule.ranges = [new $.wijmo.wijspread.Range(r + 1, c, h - 1, w)];
+            cvRule.operator = $.wijmo.wijspread.ComparisonOperator.GreaterThan;
+            cvRule.value1 = 100;
+            var style  = new $.wijmo.wijspread.Style();
+            style.backColor = "#CCFFCC";
+            cvRule.style = style;
+            sheet.getConditionalFormats().addRule(cvRule);
+
+
+            r = 3; c = 8;
+            sheet.addSpan(r, c, 1, w);
+            sheet.setValue(r, c, "Displays red background if cell value is between 60 to 120:");
+            increase = 0;
+            for (var row = 0; row < h - 1; row++)
+            {
+                for (var col = 0; col < w; col++)
+                {
+                    sheet.setValue(row + r + 1, col + c, increase);
+                    increase += 10;
+                }
+            }
+            sheet.setBorder(new $.wijmo.wijspread.Range(r, c, h, w), new $.wijmo.wijspread.LineBorder("Black", $.wijmo.wijspread.LineStyle.dashed),  {all:true});
+            cvRule = new $.wijmo.wijspread.CellValueRule();
+            cvRule.ranges = [ new $.wijmo.wijspread.Range(r + 1, c, h - 1, w) ];
+            cvRule.operator = $.wijmo.wijspread.ComparisonOperator.Between;
+            cvRule.value1 = 60;
+            cvRule.value2 = 120;
+            style  = new $.wijmo.wijspread.Style();
+            style.backColor = "#FFCCCC";
+            cvRule.style = style;
+            sheet.getConditionalFormats().addRule(cvRule);
+
+            // 2 color scale rule
+            r = 8; c = 1;
+            sheet.addSpan(r, c, 1, w);
+            sheet.setValue(r, c, "Displays two color gradient represents cell value:");
+            increase = 0;
+            for (var row = 0; row < h - 1; row++)
+            {
+                for (var col = 0; col < w; col++)
+                {
+                    sheet.setValue(row + r + 1, col + c, increase);
+                    increase += 10;
+                }
+            }
+            sheet.setBorder(new $.wijmo.wijspread.Range(r, c, h, w), new $.wijmo.wijspread.LineBorder("Black", $.wijmo.wijspread.LineStyle.dashed),  {all:true});
+            var tcsRule = new $.wijmo.wijspread.TwoScaleRule($.wijmo.wijspread.ScaleValueType.LowestValue, null, "#FF9999", $.wijmo.wijspread.ScaleValueType.HighestValue, null, "#9999FF");
+            tcsRule.ranges = [ new $.wijmo.wijspread.Range(r + 1, c, h - 1, w) ];
+            sheet.getConditionalFormats().addRule(tcsRule);
+
+            // 3 color scale rule
+            r = 8; c = 8;
+            sheet.addSpan(r, c, 1, w);
+            sheet.setValue(r, c, "Displays three color gradient represents cell value:");
+            increase = 0;
+            for (var row = 0; row < h-1; row++)
+            {
+                for (var col = 0; col < w; col++)
+                {
+                    sheet.setValue(row + r + 1, col + c, increase);
+                    increase += 10;
+                }
+            }
+            sheet.setBorder(new $.wijmo.wijspread.Range(r, c, h, w), new $.wijmo.wijspread.LineBorder("Black", $.wijmo.wijspread.LineStyle.dashed),  {all:true});
+            var threecsRule = new $.wijmo.wijspread.ThreeScaleRule($.wijmo.wijspread.ScaleValueType.LowestValue, null, "#FF9999",
+                    $.wijmo.wijspread.ScaleValueType.Number,100, "#99FF99",
+                    $.wijmo.wijspread.ScaleValueType.HighestValue, null, "#9999FF");
+            threecsRule.ranges = [new $.wijmo.wijspread.Range(r + 1, c, h - 1, w) ];
+            sheet.getConditionalFormats().addRule(threecsRule);
+
+            // date occurring rule
+            addDays = function (date, days) {
+                var dt = new Date(date.getFullYear(), date.getMonth(), date.getDate() + days);
+                if (days) {
+                    if (dt.getDate() === date.getDate()) {
+                        dt = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+                        dt.setTime(dt.getTime() + (days * 24 * 3600 * 1000));
+                    }
+                }
+                return dt;
+            };
+            r = 13; c = 1;
+            sheet.addSpan(r, c, 1, w);
+            sheet.setValue(r, c, "Display blue background if cell value is in next week:");
+            increase = 0;
+            for (var row = 0; row < h - 1; row++)
+            {
+                for (var col = 0; col < w; col++)
+                {
+                    sheet.setValue(row + r + 1, col + c, addDays(new Date(), increase));
+                    increase += 1;
+                }
+            }
+            sheet.setBorder(new $.wijmo.wijspread.Range(r, c, h, w), new $.wijmo.wijspread.LineBorder("Black", $.wijmo.wijspread.LineStyle.dashed),  {all:true});
+            //sheet.getCells(r, c, r + h, c + w).formatter( new GrapeCity.UI.GeneralFormatter("yy/mm/dd"));
+            var doRule = new $.wijmo.wijspread.DateOccurringRule();
+            doRule.ranges = [ new $.wijmo.wijspread.Range(r + 1, c, h - 1, w) ];
+            doRule.type = $.wijmo.wijspread.DateOccurringType.NextWeek;
+            style = new $.wijmo.wijspread.Style();
+            style.backColor = "#CCCCFF";
+            doRule.style = style;
+            sheet.getConditionalFormats().addRule(doRule);
+
+            // specific text rule
+            r = 13; c = 8;
+            sheet.addSpan(r, c, 1, w);
+            sheet.setValue(r, c, "Display red foreground if cell value contains \"o\":");
+            var data = ["The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog", "The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog"];
+            increase = 0;
+            for (var row = 0; row < h - 1; row++)
+            {
+                for (var col = 0; col < w; col++)
+                {
+                    sheet.setValue(row + r + 1, col + c, data[increase] );
+                    increase += 1;
+                }
+            }
+            sheet.setBorder(new $.wijmo.wijspread.Range(r, c, h, w), new $.wijmo.wijspread.LineBorder("Black", $.wijmo.wijspread.LineStyle.dashed),  {all:true});
+            var stRule = new $.wijmo.wijspread.SpecificTextRule();
+            stRule.ranges = [ new $.wijmo.wijspread.Range(r + 1, c, h - 1, w) ];
+            stRule.operator = $.wijmo.wijspread.TextComparisonOperator.Contains;
+            stRule.text = "o";
+            var style  = new $.wijmo.wijspread.Style();
+            style.foreColor  = "Red";
+            style.font = "bold 12 sans-serif";
+            stRule.style = style;
+            sheet.getConditionalFormats().addRule(stRule);
+
+
+            sheet.isPaintSuspended(false);
+
+        });
+
+    </script>
+
+</head>
+<body class="demo-single">
+<div class="container">
+    <div class="header">
+        <h2>SpreadJS ConditionFormatter</h2>
+    </div>
+    <div class="main demo">
+        <div id="ss" style="width:100%; height:400px;border: 1px solid gray; "></div>
+    </div>
+
+    <div class="footer demo-description">
+        <p>
+            Highlight interesting cells, emphasize unusual values, and visualize data using Data Bars, Color Scales, and Icon Sets based on criteria.
+        </p>
+    </div>
+</div>
+</body>
+</html>

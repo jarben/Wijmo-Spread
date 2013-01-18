@@ -1,0 +1,4 @@
+SpreadJS Alpha has landed 
+================================
+
+SpreadJS is a new product of GrapeCity Spread Products Family, which is a set of spreadsheet components for application development on a variety of platforms. We started the project over one year ago, and put in a lot of efforts. I believe it will bring value to your web applications, by adding cool features and saving you time in your project. This is our first step: alpha of version 1.0 release. We’ll continue to improve SpreadJS in the future. Your feedback is very important to us. Please download the free trial of SpreadJS, and enjoy it today!

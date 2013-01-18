@@ -1,0 +1,416 @@
+<!doctype html>
+
+<head>
+<title>SpreadJS - Formatter</title>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="description" content="%description%"/>
+<meta name="keywords" content=""/>
+
+<link rel="stylesheet" href="../../css/gcfilter-ui.css"/>
+
+<link href="../../css/cobalt/jquery-wijmo.css" rel="stylesheet" type="text/css" title="rocket-jqueryui"/>
+<link href="../../css/jquery.wijmo.wijsuperpanel.css" rel="stylesheet" type="text/css"/>
+
+<script src="../../scripts/jquery-1.8.2.min.js" type="text/javascript"></script>
+<script src="../../scripts/jquery-ui-1.9.1.custom.min.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="../../scripts/jquery.wijmo.wijspread.full.min.js"></script>
+
+<script id="scriptInit" type="text/javascript">
+var numValue = "1234.0123456789012345678901234567899";
+var dateValue = "2011/9/2";
+var timeValue = "10:08:25";
+var perValue = "1234.0123456789012345678901234567899%";
+var sciValue = "1.012345678901234567890123456789e2";
+var cusValue = "1001.1";
+var cusDateValue = "2011/08/29";
+
+var dateFormatterArray = [
+    //Date Formatter
+    dateValue, "M/d/yyyy", "9/2/2011",
+            dateValue, "[$-F800]dddd, mmmm dd, yyyy", "Friday, September 02, 2011",
+            dateValue, "M/d", "9/2",
+            dateValue, "M/d/yy", "9/2/11",
+            dateValue, "MM/dd/yy", "09/02/11",
+            dateValue, "d-MMM", "2-Sep",
+            dateValue, "d-MMM-yy", "2-Sep-11",
+            dateValue, "dd-MMM-yy", "02-Sep-11",
+            dateValue, "MMM-yy", "Sep-11",
+            dateValue, "MMMM-yy", "September-11",
+            dateValue, "MMMM d, yyyy", "September 2, 2011",
+            dateValue, "M/d/yy HH:mm tt", "9/2/11 12:00 AM",
+            dateValue, "M/d/yy H:mm", "9/2/11 0:00",
+            dateValue, "[$-409]mmmmm;@", "S",
+            dateValue, "[$-409]mmmmm-yy;@", "S-11",
+            dateValue, "d-MMM-yyyy", "2-Sep-2011",
+        //Time Formatter
+            timeValue, "HH:mm:ss tt", "10:08:25 AM",
+            timeValue, "HH:mm", "10:08",
+            timeValue, "HH:mm tt", "10:08 AM",
+            timeValue, "HH:mm:ss", "10:08:25",
+            timeValue, "mm:ss.0", "08:25.0",
+            timeValue, "m/d/yy HH:mm tt", "12/30/99 10:08 AM",
+            timeValue, "d/m/yy HH:mm", "30/12/99 10:08",
+        //Custom DateTime Formatter
+            cusDateValue, "General", "40784",
+            cusDateValue, "m/d/yyyy", "8/29/2011",
+            cusDateValue, "d-mmm-yy", "29-Aug-11",
+            cusDateValue, "d-mmm", "29-Aug",
+            cusDateValue, "mmm-yy", "Aug-11",
+            cusDateValue, "h:mm AM/PM", "0:00 AM",
+            cusDateValue, "h:mm:ss AM/PM", "0:00:00 AM",
+            cusDateValue, "h:mm", "0:00",
+            cusDateValue, "h:mm:ss", "0:00:00",
+            cusDateValue, "m/d/yyyy h:mm", "8/29/2011 0:00",
+            cusDateValue, "mm:ss", "00:00",
+            cusDateValue, "mm:ss.0", "00:00.0",
+            cusDateValue, "@", "8/29/2011 12:00:00 AM",
+            cusDateValue, "[h]:mm:ss", "978816:00:00"
+];
+
+var numberFormatterArray = [
+    //Number Formatter
+    numValue, "0", "1234",
+    //Number Formatter
+    numValue, "0", "1234",
+    numValue, "0.0", "1234.0",
+    numValue, "0.00", "1234.01",
+    numValue, "0.0000000000", "1234.0123456789",
+    numValue, "0.00000000000000000000", "1234.01234567890000000000",
+    numValue, "0.000000000000000000000000000000", "1234.012345678900000000000000000000",
+    numValue, "#,##0", "1,234",
+    numValue, "#,##0.00", "1,234.01",
+    numValue, "#,##0.0000000000", "1,234.0123456789",
+    numValue, "#,##0.00000000000000000000", "1,234.01234567890000000000",
+    numValue, "#,##0.000000000000000000000000000000", "1,234.012345678900000000000000000000",
+    numValue, "$#,##0", "$1,234",
+    numValue, "$#,##0.00", "$1,234.01",
+    numValue, "$#,##0.0000000000", "$1,234.0123456789",
+    numValue, "$#,##0.00000000000000000000", "$1,234.01234567890000000000",
+    numValue, "$#,##0.000000000000000000000000000000", "$1,234.012345678900000000000000000000",
+    numValue, "#,##0.00", "1,234.01",
+    numValue, "￥#,##0.00", "￥1,234.01",
+    numValue, "Lek#,##0.00", "Lek1,234.01",
+    numValue, "դր#,##0.00000", "դր1,234.01235",
+    numValue, "$#,##0.00", "$1,234.01",
+    numValue, "€#,##0.00", "€1,234.01",
+    numValue, "$#,##0.00", "$1,234.01",
+    numValue, "ман#,##0.00", "ман1,234.01",
+    numValue, "€#,##0.00", "€1,234.01",
+    numValue, "лв#,##0.000000", "лв1,234.012346",
+    numValue, "$#,##0.00", "$1,234.01",
+    numValue, "$b#,##0.00", "$b1,234.01",
+    numValue, "R$#,##0.00", "R$1,234.01",
+    numValue, "#,##0.00р.", "1,234.01р.",
+    numValue, "BZ$#,##0.00", "BZ$1,234.01",
+    numValue, "$#,##0.00", "$1,234.01",
+    numValue, "CB#,##0.00", "CB1,234.01",
+    numValue, "fr#,##0.00", "fr1,234.01",
+    numValue, "$#,##0.00", "$1,234.01",
+    numValue, "¥#,##0.00", "¥1,234.01",
+    numValue, "$#,##0.00", "$1,234.01",
+    numValue, "₡#,##0.00", "₡1,234.01",
+    numValue, "Kč#,##0.00", "Kč1,234.01",
+    numValue, "€#,##0.00", "€1,234.01",
+    numValue, "kr#,##0.00", "kr1,234.01",
+    numValue, "$#,##0.00", "$1,234.01",
+    numValue, "kr#,##0.00", "kr1,234.01",
+    numValue, "€#,##0.00", "€1,234.01",
+    numValue, "£#,##0.00", "£1,234.01",
+    numValue, "Lari#,##0.00", "Lari1,234.01",
+    numValue, "Q#,##0.00", "Q1,234.01",
+    numValue, "L#,##0.00", "L1,234.01",
+    numValue, "kn#,##0.00", "kn1,234.01",
+    numValue, "Ft#,##0.00", "Ft1,234.01",
+    numValue, "Rp#,##0.00", "Rp1,234.01",
+    numValue, "₪#,##0.00", "₪1,234.01",
+    numValue, "रु#,##0.00", "रु1,234.01",
+    numValue, "J$#,##0.00", "J$1,234.01",
+    numValue, "¥#,##0.00", "¥1,234.01",
+    numValue, "сом#,##0.00", "сом1,234.01",
+    numValue, "₩#,##0.00", "₩1,234.01",
+    numValue, "Т#,##0.00", "Т1,234.01",
+    numValue, "Lt#,##0.00", "Lt1,234.01",
+    numValue, "ден#,##0.00", "ден1,234.01",
+    numValue, "₮#,##0.00", "₮1,234.01",
+    numValue, "$#,##0.00", "$1,234.01",
+    numValue, "C$#,##0.00", "C$1,234.01",
+    numValue, "kr#,##0.00", "kr1,234.01",
+    numValue, "zł#,##0.00", "zł1,234.01",
+    numValue, "lei#,##0.00", "lei1,234.01",
+    numValue, "р#,##0.00", "р1,234.01",
+    numValue, "TA#,##0.00", "TA1,234.01",
+    numValue, "฿#,##0.00", "฿1,234.01",
+    numValue, "TL#,##0.00", "TL1,234.01",
+    numValue, "TT$#,##0.00", "TT$1,234.01",
+    numValue, "NT$#,##0.00", "NT$1,234.01",
+    numValue, "₴#,##0.00", "₴1,234.01",
+    numValue, "$U#,##0.00", "$U1,234.01",
+    numValue, "сўм#,##0.00", "сўм1,234.01",
+    numValue, "₫#,##0.00", "₫1,234.01",
+    numValue, "R#,##0.00", "R1,234.01",
+    numValue, "Z$#,##0.00", "Z$1,234.01",
+    //Percentage Formatter
+    perValue, "0%", "1234%",
+    perValue, "0.00%", "1234.01%",
+    perValue, "0.000000000000000%", "1234.012345678900000%",
+    perValue, "0.000000000000000000000000000000%", "1234.012345678900000000000000000000%",
+    //Scientific Formatter
+    sciValue, "0E+00", "1E+02",
+    sciValue, "0.00E+00", "1.01E+02",
+    sciValue, "0.000000000000000E+00", "1.012345678901230E+02",
+    sciValue, "0.000000000000000000000000000000E+00", "1.012345678901230000000000000000E+02",
+    //Custom Number Formatter
+    cusValue, "General", "1001.1",
+    cusValue, "0", "1001",
+    cusValue, "0.00", "1001.10",
+    cusValue, "#,##0", "1,001",
+    cusValue, "#,##0.00", "1,001.10",
+    cusValue, "0%", "100110%",
+    cusValue, "0.00%", "100110.00%",
+    cusValue, "0.00E+00", "1.00E+03",
+    cusValue, "##0.0E+0", "1.0E+3",
+    cusValue, "# ?/?", "1001 1/9",
+    cusValue, "# ??/??", "1001  1/10"
+];
+
+$(document).ready(function () {
+    $("#ss").wijspread({sheetCount:3});
+
+    var spread = $("#ss").wijspread("spread");
+    spread.useWijmoTheme = true;
+    spread.isPaintSuspended(true);
+
+    var sheet = spread.getSheet(2);
+    sheet.setName("Standard Formatter");
+    initStandardFormatter(sheet);
+
+
+    sheet = spread.getSheet(1);
+    sheet.setName("Date Formatter");
+    initFormatterUnitTest(sheet);
+    startFormatterUnitTest(sheet, dateFormatterArray);
+
+    sheet  = spread.getSheet(0);
+    sheet.setName("Number Formatter");
+    initFormatterUnitTest(sheet);
+    startFormatterUnitTest(sheet, numberFormatterArray);
+
+    spread.isPaintSuspended(false);
+});
+
+function initStandardFormatter(sheet) {
+    // Formatter
+    sheet.setColumnWidth(1, 150);
+    sheet.setColumnWidth(2, 150);
+
+    var dvalue = 12345.6789;
+    var nvalue = 12345;
+
+    // c C
+    sheet.getCell(0, 0).value("c C");
+    sheet.getCell(0, 1).formatter(new $.wijmo.wijspread.GeneralFormatter("c", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(0, 1).value(dvalue);
+    sheet.getCell(0, 2).formatter(new $.wijmo.wijspread.GeneralFormatter("C", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(0, 2).value(dvalue);
+
+    // c3 C3
+    sheet.getCell(1, 0).value("c3 C3");
+    sheet.getCell(1, 1).formatter(new $.wijmo.wijspread.GeneralFormatter("c3", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(1, 1).value(dvalue);
+    sheet.getCell(1, 2).formatter(new $.wijmo.wijspread.GeneralFormatter("C3", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(1, 2).value(dvalue);
+
+    // d D
+    sheet.getCell(2, 0).value("d D");
+    sheet.getCell(2, 1).formatter(new $.wijmo.wijspread.GeneralFormatter("d", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(2, 1).value(nvalue);
+    sheet.getCell(2, 2).formatter(new $.wijmo.wijspread.GeneralFormatter("D", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(2, 2).value(nvalue);
+
+    // d8 D8
+    sheet.getCell(3, 0).value("d8 D8");
+    sheet.getCell(3, 1).formatter(new $.wijmo.wijspread.GeneralFormatter("d8", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(3, 1).value(nvalue);
+    sheet.getCell(3, 2).formatter(new $.wijmo.wijspread.GeneralFormatter("D8", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(3, 2).value(nvalue);
+
+    // e E
+    sheet.getCell(4, 0).value("e E");
+    sheet.getCell(4, 1).formatter(new $.wijmo.wijspread.GeneralFormatter("e", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(4, 1).value(dvalue);
+    sheet.getCell(4, 2).formatter(new $.wijmo.wijspread.GeneralFormatter("E", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(4, 2).value(dvalue);
+
+    // e4 E4
+    sheet.getCell(4, 0).value("e4 E4");
+    sheet.getCell(4, 1).formatter(new $.wijmo.wijspread.GeneralFormatter("e4", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(4, 1).value(dvalue);
+    sheet.getCell(4, 2).formatter(new $.wijmo.wijspread.GeneralFormatter("E4", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(4, 2).value(dvalue);
+
+    // f F
+    sheet.getCell(5, 0).value("f F");
+    sheet.getCell(5, 1).formatter(new $.wijmo.wijspread.GeneralFormatter("f", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(5, 1).value(dvalue);
+    sheet.getCell(5, 2).formatter(new $.wijmo.wijspread.GeneralFormatter("F", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(5, 2).value(dvalue);
+
+    // f3 F3
+    sheet.getCell(6, 0).value("f3 F3");
+    sheet.getCell(6, 1).formatter(new $.wijmo.wijspread.GeneralFormatter("f3", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(6, 1).value(dvalue);
+    sheet.getCell(6, 2).formatter(new $.wijmo.wijspread.GeneralFormatter("F3", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(6, 2).value(dvalue);
+
+    // g G
+    sheet.getCell(7, 0).value("g G");
+    sheet.getCell(7, 1).formatter(new $.wijmo.wijspread.GeneralFormatter("g", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(7, 1).value(dvalue);
+    sheet.getCell(7, 2).formatter(new $.wijmo.wijspread.GeneralFormatter("G", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(7, 2).value(dvalue);
+
+    // g2 G2 Check Excel
+    sheet.getCell(8, 0).value("g2 G2");
+    sheet.getCell(8, 1).formatter(new $.wijmo.wijspread.GeneralFormatter("g2", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(8, 1).value(dvalue);
+    sheet.getCell(8, 2).formatter(new $.wijmo.wijspread.GeneralFormatter("G2", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(8, 2).value(dvalue);
+
+    // n N
+    sheet.getCell(9, 0).value("n N");
+    sheet.getCell(9, 1).formatter(new $.wijmo.wijspread.GeneralFormatter("n", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(9, 1).value(dvalue);
+    sheet.getCell(9, 2).formatter(new $.wijmo.wijspread.GeneralFormatter("N", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(9, 2).value(dvalue);
+
+    // n1 N1
+    sheet.getCell(10, 0).value("n1 N1");
+    sheet.getCell(10, 1).formatter(new $.wijmo.wijspread.GeneralFormatter("n1", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(10, 1).value(dvalue);
+    sheet.getCell(10, 2).formatter(new $.wijmo.wijspread.GeneralFormatter("N1", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(10, 2).value(dvalue);
+
+    // p P
+    sheet.getCell(11, 0).value("p P");
+    sheet.getCell(11, 1).formatter(new $.wijmo.wijspread.GeneralFormatter("p", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(11, 1).value(dvalue);
+    sheet.getCell(11, 2).formatter(new $.wijmo.wijspread.GeneralFormatter("P", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(11, 2).value(dvalue);
+
+    // p1 P1
+    sheet.getCell(12, 0).value("p1 P1");
+    sheet.getCell(12, 1).formatter(new $.wijmo.wijspread.GeneralFormatter("p1", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(12, 1).value(dvalue);
+    sheet.getCell(12, 2).formatter(new $.wijmo.wijspread.GeneralFormatter("P1", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(12, 2).value(dvalue);
+
+    // r R
+    sheet.getCell(13, 0).value("r R");
+    sheet.getCell(13, 1).formatter(new $.wijmo.wijspread.GeneralFormatter("r", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(13, 1).value(Math.PI);
+    sheet.getCell(13, 2).formatter(new $.wijmo.wijspread.GeneralFormatter("R", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(13, 2).value(Math.PI);
+
+    // x X, Check Excel
+    sheet.getCell(14, 0).value("x X");
+    sheet.getCell(14, 1).formatter(new $.wijmo.wijspread.GeneralFormatter("x", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(14, 1).value(nvalue);
+    sheet.getCell(14, 2).formatter(new $.wijmo.wijspread.GeneralFormatter("X", $.wijmo.wijspread.FormatMode.StandardNumericMode));
+    sheet.getCell(14, 2).value(nvalue);
+};
+
+function initFormatterUnitTest(sheet) {
+    sheet.setColumnCount(3);
+    sheet.getCell(0, 0, $.wijmo.wijspread.SheetArea.colHeader).value("Value");
+    sheet.getCell(0, 1, $.wijmo.wijspread.SheetArea.colHeader).value("Formatter");
+    sheet.getCell(0, 2, $.wijmo.wijspread.SheetArea.colHeader).value("Display");
+
+    sheet.setColumnWidth(0, 200);
+    sheet.setColumnWidth(1, 300);
+    sheet.setColumnWidth(2, 300);
+};
+
+function startFormatterUnitTest(sheet, formatters) {
+    for (var i = 0; i < formatters.length; i += 3) {
+        sheet.setValue(i / 3, 0, formatters[i]);
+        sheet.setValue(i / 3, 1, formatters[i + 1]);
+        sheet.setText(i / 3, 2, formatters[i]);
+        sheet.getCell(i / 3, 2).formatter(new $.wijmo.wijspread.GeneralFormatter(formatters[i + 1]));
+    }
+};
+
+function getActualCellRange(cellRange, rowCount, columnCount) {
+    if (cellRange.row == -1 && cellRange.col == -1) {
+        return new $.wijmo.wijspread.Range(0, 0, rowCount, columnCount);
+    }
+    else if (cellRange.row == -1) {
+        return new $.wijmo.wijspread.Range(0, cellRange.col, rowCount, cellRange.colCount);
+    }
+    else if (cellRange.col == -1) {
+        return new $.wijmo.wijspread.Range(cellRange.row, 0, cellRange.rowCount, columnCount);
+    }
+
+    return cellRange;
+};
+
+function btnSetFormat_Click(event) {
+    var ss = $("#ss").wijspread("spread");
+    var sheet = ss.getActiveSheet();
+    try {
+        var selections = sheet.getSelections();
+        for (var i = 0; i < selections.length; i++) {
+            var range = getActualCellRange(selections[i], sheet.getRowCount(), sheet.getColumnCount());
+            for (var i = 0; i < range.rowCount; i++) {
+                for (var j = 0; j < range.colCount; j++) {
+                    sheet.getCell(range.row + i, range.col + j).formatter(new $.wijmo.wijspread.GeneralFormatter($("#format_text").val()));
+                }
+            }
+        }
+    } catch (ex) {
+        alert(ex.message);
+    }
+};
+
+function btnClearFormat_Click(event) {
+    var ss = $("#ss").wijspread("spread");
+    var sheet = ss.getActiveSheet();
+    var selections = sheet.getSelections();
+    for (var i = 0; i < selections.length; i++) {
+        var range = getActualCellRange(selections[i], sheet.getRowCount(), sheet.getColumnCount());
+        for (var i = 0; i < range.rowCount; i++) {
+            for (var j = 0; j < range.colCount; j++) {
+                sheet.getCell(range.row + i, range.col + j).formatter(null);
+            }
+        }
+    }
+};
+</script>
+
+</head>
+<body class="demo-single">
+<div class="container">
+    <div class="header">
+        <h2>SpreadJS Formatter</h2>
+    </div>
+    <div class="main demo">
+        <div id="ss" style="width:100%; height:400px;border: 1px solid gray;"></div>
+
+        <div class="demo-options">
+            <div class="option-row">
+                <input type="text" id="format_text" value="##,##0"/>
+                <input type="button" value="SetFormat" onclick="btnSetFormat_Click(event)"/>
+                <input type="button" value="ClearFormat" onclick="btnClearFormat_Click(event)"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer demo-description">
+        <p>
+            Excel-like Formatter, format cell value according to flexible pattern.
+        </p>
+    </div>
+</div>
+</body>
+</html>

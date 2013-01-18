@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>SpreadJS</title>
+    <link href="samples/explore/css/welcome.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="scripts/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="samples/explore/js/modernizr-2.5.3.js"></script>
+    <script type="text/javascript" src="samples/explore/js/jquery.smooth-scroll.min.js"></script>
+</head>
+<body>
+    <div id="conatainer">
+        <div class="left">
+            <div class="padder">
+                <h1 id="logo">
+                    <a href="#intro">Logo</a></h1>
+                <ul id="menu">
+                    <li id="explore-menu"><a href="#explore">Explore</a></li>
+                    <!--<li id="documentation-menu"><a href="#documentation">Documentation</a></li>-->
+                    <li id="source-menu"><a href="#source">Source Code</a></li>
+                    <!--<li><a href="http://wijmo.com/forums/">Forums<img class="new-window" src="samples/explore/css/images/new-window.png" width="16" height="16"></a></li>-->
+                    <!--<li><a href="http://wijmo.com/widgets/license/">Licensing<img class="new-window" src="samples/explore/css/images/new-window.png" width="16" height="16"></a></li>-->
+                </ul>
+            </div>
+        </div>
+        <div class="right">
+            <section id="intro" class="nosidebar">
+                <article>
+                    <div class="padder">
+                        <h2>
+                            Get Started</h2>
+                        <!--<video controls id="vid1" width="420">
+                            <source src="http://cdn.wijmo.com/movies/wijmo.theora.ogv" type='video/ogg; codecs="theora, vorbis"'>
+                            <source src="http://cdn.wijmo.com/movies/wijmo.mp4video.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+                        </video>-->
+                        <p>
+                            Welcome to SpreadJS! To get started you can explore our <a href="#explore">demos</a>, <!--read our <a href="#documentation">documentation</a>--> or <a href="#source">jump right into development</a>.
+                        </p>
+                        <p>
+                            <!--<a class="button" href="http://wijmo.com/wiki/index.php/Getting_Started_with_Wijmo">Learn More</a>-->
+                        </p>
+                    </div>
+                </article>
+            </section>
+            <section id="explore" class="nosidebar">
+                <article>
+                    <div class="padder">
+                        <h2>
+                            Explore</h2>
+                        <p>
+                            Explore all of SpreadJS in this demo. It showcases every SpreadJS widget and highlights specific features for this widget. Every sample displays the source code used to create it. If you want to see what Wijmo has to offer, you should check out this demo.
+                        </p>
+                        <p>
+                            <a class="button-red" href="samples/index.html">Launch</a>
+                        </p>
+                    </div>
+                </article>
+            </section>
+            <!--<section id="documentation" class="nosidebar">-->
+                <!--<article>-->
+                    <!--<div class="padder">-->
+                        <!--<h2>-->
+                            <!--Documentation</h2>-->
+                        <!--<ul>-->
+                            <!--<li><a title="Getting Started with SpreadJS" href="http://wijmo.com/wiki/index.php/Getting_Started_with_Wijmo">Getting Started with SpreadJS</a></li>-->
+                            <!--<li><a title="Wijmo Loves ThemeRoller: An Overview" href="http://wijmo.com/wiki/index.php/Wijmo_Loves_ThemeRoller:_An_Overview">Wijmo Loves ThemeRoller: An Overview</a></li>-->
+                            <!--<li><a title="SpreadJS Quick Start" href="http://wijmo.com/wiki/index.php/Wijmo_Quick_Start">SpreadJS Quick Start</a></li>-->
+                            <!--<li><a title="Using SpreadJS with Knockout" href="http://wijmo.com/wiki/index.php/Using_Wijmo_with_Knockout">Using SpreadJS with Knockout</a></li>-->
+                            <!--<li><a title="Version Histories" href="http://wijmo.com/wiki/index.php/Version_Histories">Version Histories</a></li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                <!--</article>-->
+            <!--</section>-->
+            <section id="source" class="nosidebar">
+                <article>
+                    <div class="padder clearfix">
+                        <h2>
+                            Source Code</h2>
+                        <ul class="folder-list-left">
+                            <li><a href="./"><strong>SpreadJS</strong></a>
+                                <ul>
+                                    <li><a href="scripts">Combined JS</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </article>
+            </section>
+            <footer>
+                <div class="padder">
+                    <p>
+                        &copy; 2012 ComponentOne a division of GrapeCity All Rights Reserved. All product and company names herein may be trademarks of their respective owners.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('a').smoothScroll();
+
+        });
+</script>
+</body>
+</html>
